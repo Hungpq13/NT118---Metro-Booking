@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/home"
+        android:icon="@drawable/iconhome"
+        android:title=""
+        />
+    <item android:id="@+id/bell"
+        android:icon="@drawable/iconbell"
+        android:title=""/>
+    <item android:id="@+id/wallet"
+        android:icon="@drawable/iconwallet"
+        android:title=""/>
+    <item android:id="@+id/heart"
+        android:icon="@drawable/iconheart"
+        android:title=""/>
+    <item android:id="@+id/user"
+        android:icon="@drawable/iconuser"
+        android:title=""/>
+</menu>
+
+

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Metro_Booking_Project</string>
+    <string name="title_name">Metro Booking</string>
+    <string name="hint">Tìm kiếm địa điểm</string>
+    <string name="metro_station">Trạm Metro</string>
+    <string name="search">Tra cứu</string>
 </resources>
