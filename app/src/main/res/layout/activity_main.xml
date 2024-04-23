@@ -8,34 +8,50 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="40sp"
-        android:text="Trạm xung quanh"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        android:textStyle="bold" />
-
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView8"
+            android:layout_width="39dp"
+            android:layout_height="35sp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/arrow" />
+
+        <TextView
+            android:layout_width="338dp"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="30sp"
+            android:text="Trạm xung quanh"
+            android:textAlignment="center"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="370dp"
         android:layout_height="91dp"
-        android:background="#E6E1E1"
+        android:layout_marginHorizontal="20sp"
         android:layout_marginVertical="20sp"
+        android:background="@drawable/banner_radius"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop="15sp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView_TXQ_1"
-                android:layout_width="250dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40sp"
+                android:layout_marginStart="20sp"
                 android:text="Trạm 1"
                 android:textDirection="firstStrong"
                 android:textSize="20sp"
@@ -45,7 +61,7 @@
                 android:id="@+id/TXQ_tinhtrang1"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="40sp"
+                android:layout_marginEnd="50sp"
                 android:background="@color/blue_light"
                 android:text="Gần đến"
                 android:textAlignment="center"
@@ -57,7 +73,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
+            android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:orientation="horizontal">
 
@@ -66,6 +82,7 @@
                 android:id="@+id/imageview_clock1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="0sp"
                 android:layout_weight="1"
                 app:srcCompat="@drawable/clock" />
 
@@ -81,23 +98,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
         android:layout_height="91dp"
-        android:background="#E6E1E1"
+        android:layout_marginHorizontal="20sp"
         android:layout_marginVertical="20sp"
+        android:background="@drawable/banner_radius"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop="15sp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView_TXQ_2"
-                android:layout_width="250dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40sp"
+                android:layout_marginStart="20sp"
                 android:text="Trạm 2"
                 android:textDirection="firstStrong"
                 android:textSize="20sp"
@@ -105,13 +123,13 @@
 
             <TextView
                 android:id="@+id/TXQ_tinhtrang2"
-                android:layout_width="90dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="40sp"
-                android:background="@color/blue_light"
-                android:text="Gần đến"
+                android:layout_marginEnd="50dp"
+                android:background="#99FF99"
+                android:text="Di chuyển"
                 android:textAlignment="center"
-                android:textColor="#0478AE"
+                android:textColor="#009900"
                 android:textColorLink="#B3DFF3"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -119,7 +137,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
+            android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:orientation="horizontal">
 
@@ -143,23 +161,24 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="370dp"
         android:layout_height="91dp"
-        android:background="#E6E1E1"
+        android:layout_marginHorizontal="20sp"
         android:layout_marginVertical="20sp"
+        android:background="@drawable/banner_radius"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop="15sp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView_TXQ_3"
-                android:layout_width="250dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40sp"
+                android:layout_marginStart="20sp"
                 android:text="Trạm 5"
                 android:textDirection="firstStrong"
                 android:textSize="20sp"
@@ -167,13 +186,13 @@
 
             <TextView
                 android:id="@+id/TXQ_tinhtrang3"
-                android:layout_width="90dp"
+                android:layout_width="95dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40sp"
-                android:background="@color/blue_light"
-                android:text="Gần đến"
+                android:background="#99FF99"
+                android:text="Di chuyển"
                 android:textAlignment="center"
-                android:textColor="#0478AE"
+                android:textColor="#009900"
                 android:textColorLink="#B3DFF3"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -181,7 +200,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
+            android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:orientation="horizontal">
 
@@ -207,21 +226,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="91dp"
-        android:background="#E6E1E1"
+        android:layout_marginHorizontal="20sp"
         android:layout_marginVertical="20sp"
+        android:background="@drawable/banner_radius"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10sp"
+            android:layout_marginTop="15sp"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView_TXQ_4"
-                android:layout_width="250dp"
+                android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40sp"
+                android:layout_marginStart="20sp"
                 android:text="Trạm 1"
                 android:textDirection="firstStrong"
                 android:textSize="20sp"
@@ -232,10 +252,10 @@
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="40sp"
-                android:background="@color/blue_light"
+                android:background="#FFFFCC"
                 android:text="Gần đến"
                 android:textAlignment="center"
-                android:textColor="#0478AE"
+                android:textColor="#FF9933"
                 android:textColorLink="#0478AE"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -243,7 +263,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
+            android:layout_marginStart="20sp"
             android:layout_marginTop="20sp"
             android:orientation="horizontal">
 
