@@ -26,9 +26,7 @@
         </activity>
         <activity
             android:name=".Menu"
-            android:exported="false"/>
-
-
+            android:exported="false" />
         <activity
             android:name=".BookingHistory"
             android:exported="false" />

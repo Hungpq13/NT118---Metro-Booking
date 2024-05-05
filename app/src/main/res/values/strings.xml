@@ -12,4 +12,5 @@
     <string name="update_data">Cập nhật dữ liệu</string>
     <string name="rating_app">Đánh giá ứng dụng</string>
     <string name="info_company">Thông tin công ty</string>
+    <string name="logout">Đăng xuất</string>
 </resources>
