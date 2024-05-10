@@ -44,11 +44,13 @@
                 android:src="@drawable/avatar"/>
 
             <Button
+                android:id="@+id/btnPickImage"
                 android:layout_width="match_parent"
                 android:layout_height="24dp"
                 android:layout_gravity="bottom"
                 android:backgroundTint="#66CDD0DF"
-                android:drawableEnd="@drawable/iconcamera"/>
+                android:drawableEnd="@drawable/iconcamera"
+                android:onClick="onChangeAvatarClicked"/>
         </androidx.cardview.widget.CardView>
 
         <TextView
