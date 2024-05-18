@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Metro_Booking_Project"
+rootProject.name = "NT118Project"
 include(":app")
  

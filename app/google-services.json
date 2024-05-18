@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "480204905525",
+    "project_id": "nt118-metrobookingproject",
+    "storage_bucket": "nt118-metrobookingproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480204905525:android:9145d4fdb1170ac2caa57c",
+        "android_client_info": {
+          "package_name": "com.example.metrobookingproject"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU1dgWUIfavLc-pvg44T4OJ-SSkYKvfcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480204905525:android:400f665d790325afcaa57c",
+        "android_client_info": {
+          "package_name": "com.example.nt118project"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCU1dgWUIfavLc-pvg44T4OJ-SSkYKvfcg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,7 +1,10 @@
 <resources>
-    <string name="app_name">Metro_Booking_Project</string>
-    <string name="title_name">Metro Booking</string>
+    <string name="app_name">NT118Project</string>
+    <string name="top_view">NT118Project</string>
     <string name="hint">Tìm kiếm địa điểm</string>
     <string name="metro_station">Trạm Metro</string>
     <string name="search">Tra cứu</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainFunction.NearStation1Activity"
+    android:background="#F5F5F5">
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_arrownarrowleft"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginVertical="40sp"
+        android:text="Chọn trạm"
+        android:textAlignment="center"
+        android:textSize="25sp"
+        android:textStyle="bold"
+       />
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginVertical="5sp"
+        android:background="@drawable/bannerradius"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/metro1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/train"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40sp"
+                android:text="Trạm 1"
+                android:textColor="@color/white"
+                android:textDirection="firstStrong"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginEnd="200dp"
+                android:background="@drawable/radiustrain"
+                />
+
+            <TextView
+
+                android:layout_width="120dp"
+                android:layout_height="23dp"
+                android:text="20k VNĐ"
+                android:textColor="@color/red"
+                android:textColorLink="#B3DFF3"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:text="Bến Thành - Suối Tiên"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            android:textColorLink="#B3DFF3"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20sp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+
+                android:layout_width="100sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/clock" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="80sp"
+                android:text="Thời gian diễn ra 5:30 - 22:30"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginVertical="5sp"
+        android:background="@drawable/bannerradius"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/metro2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/train"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40sp"
+                android:text="Trạm 2"
+                android:textColor="@color/white"
+                android:textDirection="firstStrong"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginEnd="200dp"
+                android:background="@drawable/radiustrain"
+                />
+
+            <TextView
+
+                android:layout_width="120dp"
+                android:layout_height="23dp"
+                android:text="20k VNĐ"
+                android:textColor="@color/red"
+                android:textColorLink="#B3DFF3"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:text="Bến Thành - Suối Tiên"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            android:textColorLink="#B3DFF3"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20sp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+
+                android:layout_width="100sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/clock" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="80sp"
+                android:text="Thời gian diễn ra 5:30 - 22:30"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginVertical="5sp"
+        android:background="@drawable/bannerradius"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/metro3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/train"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40sp"
+                android:text="Trạm 3"
+                android:textColor="@color/white"
+                android:textDirection="firstStrong"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginEnd="200dp"
+                android:background="@drawable/radiustrain"
+                />
+
+            <TextView
+
+                android:layout_width="120dp"
+                android:layout_height="23dp"
+                android:text="20k VNĐ"
+                android:textColor="@color/red"
+                android:textColorLink="#B3DFF3"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:text="Bến Thành - Suối Tiên"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            android:textColorLink="#B3DFF3"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20sp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+
+                android:layout_width="100sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/clock" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="80sp"
+                android:text="Thời gian diễn ra 5:30 - 22:30"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginVertical="5sp"
+        android:background="@drawable/bannerradius"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/metro4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10sp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/train"
+                />
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40sp"
+                android:text="Trạm 4"
+                android:textColor="@color/white"
+                android:textDirection="firstStrong"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginEnd="200dp"
+                android:background="@drawable/radiustrain"
+                />
+
+            <TextView
+
+                android:layout_width="120dp"
+                android:layout_height="23dp"
+                android:text="20k VNĐ"
+                android:textColor="@color/red"
+                android:textColorLink="#B3DFF3"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <TextView
+
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="10dp"
+            android:text="Bến Thành - Suối Tiên"
+            android:textAlignment="viewEnd"
+            android:textColor="@color/black"
+            android:textColorLink="#B3DFF3"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30sp"
+            android:layout_marginTop="20sp"
+            android:orientation="horizontal">
+
+
+            <ImageView
+
+                android:layout_width="100sp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/clock" />
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="80sp"
+                android:text="Thời gian diễn ra 5:30 - 22:30"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

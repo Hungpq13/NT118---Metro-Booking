@@ -1,13 +1,17 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id("com.google.gms.google-services")
+    alias(libs.plugins.googleAndroidLibrariesMapsplatformSecretsGradlePlugin)
+
+
 }
 
 android {
-    namespace = "com.example.metro_booking_project"
+    namespace = "com.example.nt118project"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.metro_booking_project"
+        applicationId = "com.example.nt118project"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -29,6 +33,9 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        viewBinding = true
+    }
 }
 
 dependencies {
@@ -37,9 +44,15 @@ dependencies {
     implementation(libs.material)
     implementation(libs.activity)
     implementation(libs.constraintlayout)
+    implementation(libs.firebase.database)
+    implementation(libs.navigation.fragment)
+    implementation(libs.navigation.ui)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation("androidx.cardview:cardview:1.0.0")
+    implementation(platform("com.google.firebase:firebase-bom:32.8.1"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation ("com.google.android.material:material:1.11.0")
 
 }
