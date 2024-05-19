@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -19,13 +20,29 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 public class NearStation2Activity extends AppCompatActivity implements OnMapReadyCallback {
      ImageView back ;
-        private GoogleMap gMap;
+     private GoogleMap gMap;
+     String stationID;
+     String stationName;
+     TextView stationIDTextView, stationNameTextView;
+     String stationDocumentID;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.near_station2);
+
+        Intent intent = getIntent();
+        stationName = intent.getStringExtra("stationName");
+        stationDocumentID = intent.getStringExtra("stationDocumentID");
+        stationID = intent.getStringExtra("stationID");
+
         back = findViewById(R.id.back);
+        stationIDTextView = findViewById(R.id.Tram);
+        stationNameTextView = findViewById(R.id.chuyen);
+
+        stationIDTextView.setText("Trạm " + stationID);
+        stationNameTextView.setText(stationName);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

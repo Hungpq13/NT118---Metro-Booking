@@ -68,10 +68,9 @@
           android:layout_marginStart="80dp"
           android:layout_weight="1"
           android:background="@drawable/signin_border"
-          android:digits="0123456789"
           android:ems="10"
           android:hint=" Hãy nhập số điện thoại đã đăng ký"
-          android:inputType="textPersonName"
+          android:inputType="text"
           android:paddingLeft="5dp"
 
           android:textSize="13sp" />
