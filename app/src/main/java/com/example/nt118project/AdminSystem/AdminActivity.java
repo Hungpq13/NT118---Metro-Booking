@@ -14,7 +14,6 @@ import com.example.nt118project.R;
 public class AdminActivity extends AppCompatActivity {
     LinearLayout customer;
     LinearLayout routes;
-
     LinearLayout ticket ;
     LinearLayout logout ;
 
