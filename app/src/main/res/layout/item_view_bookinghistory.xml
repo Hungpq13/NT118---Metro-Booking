@@ -64,13 +64,4 @@
         android:layout_below="@id/date"
         android:layout_marginTop="10dp"
         android:background="@color/grey"/>
-
-
-
-
-
-
-
-
-
 </RelativeLayout>

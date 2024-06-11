@@ -13,10 +13,14 @@
         android:theme="@style/Theme.Metro_Booking_Project"
         tools:targetApi="31">
         <activity
-            android:name=".BookingHistory"
-            android:exported="true" >
+            android:name=".Personal_Information"
+            android:exported="false" />
+        <activity
+            android:name=".Personal"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -25,6 +29,9 @@
             android:exported="false"/>
 
 
+        <activity
+            android:name=".BookingHistory"
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="false" />

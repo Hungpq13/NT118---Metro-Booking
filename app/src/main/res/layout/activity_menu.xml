@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    tools:context=".Menu">
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/avaCardview"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:cardCornerRadius="200dp"
-        android:layout_margin="20dp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:id="@+id/main" android:layout_width="match_parent" android:layout_height="wrap_content" tools:context=".bottomnav.MenuActivity">
+    <androidx.cardview.widget.CardView android:id="@+id/avaCardview" android:layout_width="50dp" android:layout_height="50dp" app:cardCornerRadius="200dp" android:layout_margin="20dp">
         <ImageView
             android:id="@+id/avatarImageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/avatar"/>
+            android:src="@drawable/avatar"
+            />
     </androidx.cardview.widget.CardView>
     <TextView
         android:id="@+id/usernameTextView"
@@ -25,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_toEndOf="@+id/avaCardview"
         android:layout_marginTop="30dp"
-        android:text="@string/title_name"
+        android:text="Hưng Phạm"
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"/>
@@ -36,7 +25,7 @@
         android:layout_below="@id/usernameTextView"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:drawableRight="@drawable/iconsearch"
+        android:drawableEnd="@drawable/iconsearch"
         android:hint="@string/hint"/>
     <androidx.cardview.widget.CardView
         android:id="@+id/mapCardView"
@@ -45,36 +34,35 @@
         app:cardCornerRadius="200dp"
         android:layout_below="@id/searchEditText"
         android:layout_marginTop="50dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginStart="80dp"
         app:cardBackgroundColor="@color/blue">
-
         <Button
+            android:id="@+id/metro"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableLeft="@drawable/iconmap"
-            android:backgroundTint="@color/blue"
-            />
+            android:backgroundTint="@color/blue"/>
     </androidx.cardview.widget.CardView>
     <TextView
         android:id="@+id/mapTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/mapCardView"
-        android:layout_marginLeft="76dp"
+        android:layout_marginStart="76dp"
         android:layout_marginTop="3dp"
-        android:text="@string/metro_station" />
+        android:text="@string/metro_station"/>
     <androidx.cardview.widget.CardView
         android:id="@+id/locationCardView"
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:cardCornerRadius="200dp"
         android:layout_alignTop="@id/mapCardView"
-        android:layout_toRightOf="@id/mapCardView"
+        android:layout_toEndOf="@id/mapCardView"
         android:layout_marginStart="110dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/blue">
-
         <Button
+            android:id="@+id/search"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:drawableLeft="@drawable/iconlocation"
@@ -86,22 +74,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/locationCardView"
-        android:layout_marginLeft="-62dp"
+        android:layout_marginStart="-80dp"
         android:layout_marginTop="3dp"
-        android:layout_toRightOf="@id/locationCardView"
-        android:text="@string/search"/>
-    <TextView
+        android:layout_toEndOf="@id/locationCardView"
+        android:text="@string/search" />
+
+
+
+    <fragment xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
+        android:layout_marginTop="50dp"
         android:layout_below="@id/mapTextView"
-        android:layout_marginTop="50dp" />
+        tools:context=".MainFunction.MapsActivity" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
-       android:id="@+id/bottomNavigationView"
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignParentBottom="true"
-       app:menu="@menu/menu_bottom_nav"
-       />
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        app:menu="@menu/menu_bottom_nav"
+        app:color="@color/custom_color_nav"
+        />
+
 </RelativeLayout>

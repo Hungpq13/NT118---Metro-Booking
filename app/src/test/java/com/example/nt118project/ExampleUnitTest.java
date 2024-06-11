@@ -1,4 +1,4 @@
-package com.example.metro_booking_project;
+package com.example.nt118project;
 
 import org.junit.Test;
 
