@@ -9,7 +9,7 @@
               <option name="connection">
                 <ConnectionSetting>
                   <option name="appId" value="com.example.nt118project" />
-                  <option name="mobileSdkAppId" value="1:480204905525:android:400f665d790325afcaa57c" />
+                  <option name="mobileSdkAppId" value="1:480204905525:android:0fd88d4317f49065caa57c" />
                   <option name="projectId" value="nt118-metrobookingproject" />
                   <option name="projectNumber" value="480204905525" />
                 </ConnectionSetting>
