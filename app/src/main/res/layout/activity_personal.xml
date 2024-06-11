@@ -5,11 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+
+    tools:context=".Personal">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="130dp"
+        android:layout_height="150dp"
         android:background="@color/green"
         android:orientation="vertical">
 
@@ -17,13 +18,13 @@
             android:id="@+id/personal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:text="@string/personal"
             android:layout_gravity="center"
-            android:layout_marginTop="50dp"
-
-            android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,11 +36,10 @@
             android:layout_width="70dp"
             android:layout_height="70dp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="95dp"
+            android:layout_marginTop="115dp"
             app:cardCornerRadius="50dp">
 
             <ImageView
-                android:id="@+id/avatarImageView"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:src="@drawable/avatar"/>
@@ -49,7 +49,7 @@
             android:id="@+id/personal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:text="@string/personal_name"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"/>
 
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="30dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="380dp"
@@ -72,7 +72,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/iconuser2"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/info_personal"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -81,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="30dp">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="380dp"
@@ -96,8 +98,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
-
+                    android:drawableLeft="@drawable/iconsetting"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/setting"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -121,7 +124,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/iconloca"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/change_location"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -146,7 +151,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/icondata"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/update_data"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -164,12 +171,15 @@
                 android:layout_gravity="center"
                 android:clickable="true"
                 app:cardBackgroundColor="@color/white">
+
                 <Button
-                    android:id="@+id/btn_ratingapp"
-                    android:layout_width="380dp"
+                    android:id="@+id/btn_rating"
+                    android:layout_width="3800dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/iconstar"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/rating_app"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -194,32 +204,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
-                    android:textAlignment="textStart"
-                    android:textColor="@color/black" />
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="5dp">
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="380dp"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="10dp"
-                android:layout_gravity="center"
-                android:clickable="true"
-                app:cardBackgroundColor="@color/white">
-
-                <Button
-                    android:id="@+id/btn_logout"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/logout"
-
+                    android:drawableLeft="@drawable/iconinfo"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/info_company"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -234,7 +221,7 @@
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             app:menu="@menu/menu_bottom_nav"/>
     </LinearLayout>
 </RelativeLayout>
