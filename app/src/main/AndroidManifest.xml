@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
@@ -27,8 +28,6 @@
         <activity
             android:name=".Menu"
             android:exported="false"/>
-
-
         <activity
             android:name=".BookingHistory"
             android:exported="false" />
@@ -36,5 +35,85 @@
             android:name=".MainActivity"
             android:exported="false" />
     </application>
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.NT118Project"
+        tools:targetApi="31">
+        <activity
+            android:name=".bottomnav.Personal"
+            android:exported="false" />
+        <activity
+            android:name=".bottomnav.bottomnav"
+            android:exported="false" />
+        <activity
+            android:name=".MainFunction.NearStation1Activity"
+            android:exported="false" />
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCPdiazeS_QFXXAgP0AM9FGw6vWTpMogAQ" />
+
+        <uses-library android:name="com.google.android.maps" />
+
+        <activity
+            android:name=".MainFunction.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".bottomnav.FavoriteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".bottomnav.MenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Auth.Register"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSystem.AdminActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainFunction.NearStation2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminSystem.MemberPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Auth.Login"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
 
 </manifest>

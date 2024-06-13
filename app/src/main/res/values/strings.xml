@@ -1,15 +1,21 @@
 <resources>
-    <string name="app_name">Metro_Booking_Project</string>
-    <string name="title_name">Metro Booking</string>
+    <string name="app_name">NT118Project</string>
+    <string name="top_view">NT118Project</string>
     <string name="hint">Tìm kiếm địa điểm</string>
     <string name="metro_station">Trạm Metro</string>
     <string name="search">Tra cứu</string>
+
     <string name="personal">Tài khoản </string>
     <string name="personal_name">Metro User</string>
     <string name="info_personal">Thông tin cá nhân</string>
     <string name="setting">Cài đặt</string>
     <string name="change_location">Thay đổi khu vực</string>
     <string name="update_data">Cập nhật dữ liệu</string>
-    <string name="rating_app">Đánh giá ứng dụng</string>
+
     <string name="info_company">Thông tin công ty</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
 </resources>
