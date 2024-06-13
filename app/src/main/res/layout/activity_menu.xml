@@ -48,12 +48,18 @@
         android:layout_marginLeft="80dp"
         app:cardBackgroundColor="@color/blue">
 
-        <Button
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawableLeft="@drawable/iconmap"
-            android:backgroundTint="@color/blue"
-            />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/button_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iconmap"
+                android:layout_centerInParent="true" />
+
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
     <TextView
         android:id="@+id/mapTextView"
@@ -74,11 +80,17 @@
         android:layout_marginRight="20dp"
         app:cardBackgroundColor="@color/blue">
 
-        <Button
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:drawableLeft="@drawable/iconlocation"
-            android:backgroundTint="@color/blue"/>
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/buttonicon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/iconlocation"
+                android:layout_centerInParent="true" />
+        </RelativeLayout>
     </androidx.cardview.widget.CardView>
 
     <TextView
@@ -102,7 +114,6 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:layout_alignParentBottom="true"
-
        app:menu="@menu/menu_bottom_nav"
        />
 </RelativeLayout>
