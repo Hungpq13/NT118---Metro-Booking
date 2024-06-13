@@ -239,6 +239,7 @@
                         android:textSize="16sp" />
 
                     <EditText
+                        android:id="@+id/date"
                         android:layout_width="235dp"
                         android:layout_height="match_parent"
                         android:background="@null"
@@ -249,13 +250,14 @@
                         android:textSize="16sp" />
 
                     <ImageView
+                        android:id="@+id/btnPickDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/iconedit"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
                         android:clickable="true"
-                        android:layout_gravity="center" />
+                        android:src="@drawable/iconedit" />
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
