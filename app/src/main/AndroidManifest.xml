@@ -45,8 +45,7 @@
 
         <activity
             android:name=".MainFunction.MapsActivity"
-            android:exported="false"
-            android:label="@string/title_activity_maps" />
+            android:exported="false" />
         <activity
             android:name=".bottomnav.FavoriteActivity"
             android:exported="false" />

@@ -23,10 +23,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.activity.result.ActivityResult;
 
-
-
-
-
+import com.example.nt118project.R;
 
 
 public class Personal_Information extends AppCompatActivity {
