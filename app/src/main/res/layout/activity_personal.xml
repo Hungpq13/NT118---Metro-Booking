@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+
+    tools:context=".Personal">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="50dp"
-
+            android:text="@string/personal"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="20sp"
@@ -49,7 +50,7 @@
             android:id="@+id/personal_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:text="@string/personal_name"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"/>
 
@@ -72,7 +73,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/iconuser2"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/info_personal"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -96,8 +99,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
-
+                    android:drawableLeft="@drawable/iconsetting"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/setting"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -121,7 +125,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/iconloca"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/change_location"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -146,7 +152,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/icondata"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/update_data"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -169,7 +177,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/iconstar"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/rating_app"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -194,7 +204,9 @@
                     android:layout_width="380dp"
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
-
+                    android:drawableLeft="@drawable/iconinfo"
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/info_company"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
@@ -219,7 +231,8 @@
                     android:layout_height="60dp"
                     android:backgroundTint="@color/white"
                     android:drawableLeft="@drawable/logout"
-
+                    android:drawableRight="@drawable/iconnext"
+                    android:text="@string/logout"
                     android:textAlignment="textStart"
                     android:textColor="@color/black" />
             </androidx.cardview.widget.CardView>
