@@ -2,7 +2,6 @@ package com.example.nt118project.Auth;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 
 import com.example.nt118project.AdminSystem.AdminActivity;
 import com.example.nt118project.bottomnav.MenuActivity;
