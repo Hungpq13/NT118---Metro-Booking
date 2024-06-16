@@ -29,9 +29,9 @@
         android:layout_height="200dp"
         android:text="Danh sách thành viên"
         android:textAlignment="center"
-        android:textColor="@color/black"
-
+        android:textStyle="bold"
         android:textSize="30sp"
+        android:textColor="@color/white"
         android:paddingTop="70dp"
         />
 </RelativeLayout>
@@ -45,6 +45,5 @@
         android:id="@+id/btnAddUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:text="Thêm Người Dùng" />
 </LinearLayout>

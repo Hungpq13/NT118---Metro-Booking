@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <RadioGroup
+        android:id="@+id/rgStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rbMoving"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Di chuyển" />
+
+        <RadioButton
+            android:id="@+id/rbDelayed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tạm hoãn" />
+    </RadioGroup>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Lý do "
+        android:inputType="text" />
+</LinearLayout>
