@@ -1,67 +1,54 @@
 package com.example.nt118project.bottomnav;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-
-import com.example.nt118project.AdminSystem.AdminActivity;
-import com.example.nt118project.BookingHistory.BookingHistory;
-import com.example.nt118project.MainFunction.MapsActivity;
-import com.example.nt118project.MainFunction.NearStation1Activity;
 import com.example.nt118project.R;
-
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MenuActivity extends AppCompatActivity {
 
-    Button metro ;
-    Button Search ;
-    TextView usernameTextView;
-    ImageView avatarImageView;
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_menu);
-        metro = findViewById(R.id.metro);
-        Search = findViewById(R.id.search);
-        avatarImageView = findViewById(R.id.avatarImageView);
-        usernameTextView = findViewById(R.id.usernameTextView);
-        avatarImageView.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_main);
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, BookingHistory.class);
-                startActivity(intent);
-            }
-        });
-        usernameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, AdminActivity.class);
-                startActivity(intent);
-            }
-        });
-        Search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, NearStation1Activity.class);
-                startActivity(intent);
-            }
-        });
-        metro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, MapsActivity.class);
-                startActivity(intent);
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                Fragment selectedFragment = null;
+                int itemId = item.getItemId();
+                if (itemId == R.id.home) {
+                    selectedFragment = new MenuFragment();
+                } else if (itemId == R.id.bell) {
+                    selectedFragment = new NotificationFragment();
+                } else if (itemId == R.id.heart) {
+                    selectedFragment = new FavoriteFragment();
+                } else if (itemId == R.id.user) {
+                    selectedFragment = new ProfileFragment();
+                }
+
+                if (selectedFragment != null) {
+                    FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.nav_host_fragment, selectedFragment);
+                    transaction.addToBackStack(null);  // Thêm vào back stack
+                    transaction.commitAllowingStateLoss();  // Dùng commitAllowingStateLoss để tránh lỗi trạng thái
+                }
+                return true;
             }
         });
 
+        // Set default fragment
+        if (savedInstanceState == null) {
+            bottomNavigationView.setSelectedItemId(R.id.home);
+        }
     }
-
 }

@@ -30,11 +30,9 @@ public class BookingHistory extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.history_recyclerview);
 
         List<Item> items = new ArrayList<Item>();
-        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Bến Thành", "35 phút", "12:36 23/4/2024"));
-        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Ba Son", "27 phút", "12:48 23/4/2024"));
-        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Nhà Hát Thành phố", "30 phút", "13:00 23/4/2024"));
-        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Thủ Đức", " 5 phút", "13:12 23/4/2024"));
-        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Rạch Chiếc", "10 phút", "13:24 23/4/2024"));
+        items.add(new Item(R.drawable.qrcode, "123", "đi", "12:36", " 23/4/2024"));
+        items.add(new Item(R.drawable.qrcode, "134", "về" , "12:48" , " 23/4/2024"));
+
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
