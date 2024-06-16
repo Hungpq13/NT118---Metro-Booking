@@ -40,7 +40,14 @@ public class AdminActivity extends AppCompatActivity {
         routes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(AdminActivity.this, NearStation1Activity.class));
+                startActivity(new Intent(AdminActivity.this, MetroTripActivity.class));
+            }
+        });
+        ticket = findViewById(R.id.ticket);
+        ticket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, TicketActivity.class));
             }
         });
     }
