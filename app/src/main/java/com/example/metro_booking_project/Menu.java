@@ -11,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.viewpager.widget.ViewPager;
 
 
+import com.example.nt118project.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
