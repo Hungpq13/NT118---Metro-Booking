@@ -35,7 +35,7 @@
             android:layout_toEndOf="@+id/stationID"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_marginStart="120dp"
             android:text="20k VNĐ"
             android:textColor="@color/red"
             android:textSize="20sp" />

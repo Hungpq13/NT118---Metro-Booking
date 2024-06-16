@@ -1,4 +1,4 @@
-package com.example.metro_booking_project;
+package com.example.nt118project.MainFunction;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.nt118project.R;
 
 
 public class Adapter_payment extends ArrayAdapter<String>
