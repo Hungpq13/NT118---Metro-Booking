@@ -38,9 +38,9 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         recyclerViewUsers.setLayoutManager(new LinearLayoutManager(this));
 
         userList = new ArrayList<>();
-        userList.add(new Member("Nguyen Van A", "nguyenvana@example.com","123456"));
-        userList.add(new Member("Le Thi B", "lethib@example.com", "123"));
-        userList.add(new Member("Tran Van C", "tranvanc@example.com", "1"));
+        userList.add(new Member("Nguyen Van A", "nguyenvana@gmail.com","123456"));
+        userList.add(new Member("Le Thi B", "lethib@gmail.com", "123"));
+        userList.add(new Member("Tran Van C", "tranvanc@gmail.com", "1"));
 
         userAdapter = new MemberAdapter(userList, (MemberAdapter.OnUserClickListener) this);
         recyclerViewUsers.setAdapter(userAdapter);
