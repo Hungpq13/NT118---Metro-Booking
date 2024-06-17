@@ -18,23 +18,22 @@
         android:textColor="@android:color/black"
         android:textSize="18sp"
         android:textStyle="bold"/>
-    <EditText
-        android:id="@+id/searchEditText"
+    <SearchView
+        android:id="@+id/searchView"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/usernameTextView"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
-        android:drawableEnd="@drawable/iconsearch"
-        android:hint="@string/hint"/>
+        android:queryHint="Search location"/>
     <androidx.cardview.widget.CardView
         android:id="@+id/mapCardView"
         android:layout_width="70dp"
         android:layout_height="70dp"
         app:cardCornerRadius="200dp"
-        android:layout_below="@id/searchEditText"
+        android:layout_below="@id/searchView"
         android:layout_marginTop="50dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="50dp"
         app:cardBackgroundColor="@color/blue">
         <Button
             android:id="@+id/metro"
@@ -48,9 +47,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/mapCardView"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="50dp"
         android:layout_marginTop="3dp"
         android:text="@string/metro_station"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/paymentCardView"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:cardCornerRadius="200dp"
+        android:layout_alignTop="@id/mapCardView"
+        android:layout_toEndOf="@id/mapCardView"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/blue">
+        <Button
+            android:id="@+id/payment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/payment"
+            android:backgroundTint="@color/blue"/>
+    </androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/paymentTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/paymentCardView"
+        android:layout_marginStart="-80dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@id/paymentCardView"
+        android:text="Mua vé" />
     <androidx.cardview.widget.CardView
         android:id="@+id/locationCardView"
         android:layout_width="70dp"
@@ -58,7 +83,7 @@
         app:cardCornerRadius="200dp"
         android:layout_alignTop="@id/mapCardView"
         android:layout_toEndOf="@id/mapCardView"
-        android:layout_marginStart="110dp"
+        android:layout_marginStart="160dp"
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/blue">
         <Button

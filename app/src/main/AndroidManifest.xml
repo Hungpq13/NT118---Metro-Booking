@@ -20,6 +20,9 @@
         android:theme="@style/Theme.NT118Project"
         tools:targetApi="31">
         <activity
+            android:name=".MainFunction.Main_payment"
+            android:exported="false" />
+        <activity
             android:name=".AdminSystem.TicketActivity"
             android:exported="false" />
         <activity

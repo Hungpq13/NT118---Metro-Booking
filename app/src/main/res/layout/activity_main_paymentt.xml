@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainFunction.Main_payment"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/payment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mua vé"
+        android:textColorHint="#D53C2F2F"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_payment"
+        android:padding="16dp"
+        android:layout_below="@id/payment">
+
+        <TextView
+            android:id="@+id/text_payment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Payment"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/black"/>
+
+        <ImageButton
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="323dp"
+            android:background="@drawable/ic_arrownarrowleft"
+            app:srcCompat="?attr/actionModeCloseDrawable" />
+
+        <TextView
+            android:id="@+id/hoten"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_payment"
+            android:text="Họ tên"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/hienName"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/hoten"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_form"
+            android:padding="8dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hienName"
+            android:layout_marginTop="16dp"
+            android:text="SĐT"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/hienSDT"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/phone"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_form"
+            android:padding="8dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hienSDT"
+            android:layout_marginTop="16dp"
+            android:text="Email"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/hienEmail"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/email"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_form"
+            android:padding="8dp"
+            android:textColor="@color/black"/>
+
+        <TextView
+            android:id="@+id/loaive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/hienEmail"
+            android:layout_marginTop="16dp"
+            android:text="Loại vé"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"/>
+
+        <Spinner
+            android:id="@+id/sLoaive"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/loaive"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_form"
+            android:padding="8dp"
+            />
+
+        <TextView
+            android:id="@+id/thanhtoan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sLoaive"
+            android:layout_marginTop="16dp"
+            android:text="Phương thức thanh toán"
+            android:textSize="18sp"
+            android:textStyle="italic"
+            android:textColor="@color/black"/>
+
+        <Spinner
+            android:id="@+id/sThanhtoan"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/thanhtoan"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_form"
+            android:padding="8dp"/>
+
+        <TextView
+            android:id="@+id/Giatien"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_below="@id/sThanhtoan"
+            android:layout_marginTop="16dp"
+            android:text="Chọn vé để thành tiền"
+            android:background="@drawable/bg_form"
+            android:padding="8dp"
+            android:textSize="20sp"
+            android:textColor="#008080"
+            android:textAlignment="center"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/Giatien"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="16dp"
+            android:text="Xác nhận thanh toán"
+            android:background="@drawable/bd_xacnhan"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+</RelativeLayout>
