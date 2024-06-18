@@ -1,4 +1,4 @@
-package com.example.nt118project.BookingHistory;
+package com.example.metro_booking_project;
 
 import android.os.Bundle;
 
@@ -10,12 +10,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nt118project.R;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookingHistory extends AppCompatActivity {
+    private MyViewHolder_BookingHistory myViewHolderBookingHistory;
+    private ArrayList<Item> items;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,15 +27,19 @@ public class BookingHistory extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        items = new ArrayList<>();
         RecyclerView recyclerView = findViewById(R.id.history_recyclerview);
 
-        List<Item> items = new ArrayList<Item>();
-        items.add(new Item(R.drawable.qrcode, "123", "đi", "12:36", " 23/4/2024"));
-        items.add(new Item(R.drawable.qrcode, "134", "về" , "12:48" , " 23/4/2024"));
-
+       // List<Item> items = new ArrayList<Item>();
+        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Bến Thành", "35 phút", "12:36 23/4/2024"));
+        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Ba Son", "27 phút", "12:48 23/4/2024"));
+        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Nhà Hát Thành phố", "30 phút", "13:00 23/4/2024"));
+        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Thủ Đức", " 5 phút", "13:12 23/4/2024"));
+        items.add(new Item(R.drawable.train, "Metro", "Ga Suối Tiên", "Ga Rạch Chiếc", "10 phút", "13:24 23/4/2024"));
 
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         recyclerView.setAdapter(new MyAdapter_BookingHistory(getApplicationContext(), items));
     }
 }

@@ -6,49 +6,64 @@
 
     <ImageView
         android:layout_marginRight="10dp"
-
+        android:layout_marginLeft="10dp"
         android:layout_centerVertical="true"
-        android:background="@drawable/qrcode"
-        android:layout_width="100dp"
-        android:layout_height="70dp"
+        android:background="#FF4E6FD3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:id="@+id/car_imageview" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ticketid"
+        android:id="@+id/name"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:layout_toEndOf="@id/car_imageview"
         android:layout_marginTop="10dp"
-        android:text="Mã vé : "/>
+        android:text="Name"/>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:id="@+id/turn"
+        android:id="@+id/position_from"
         android:textColor="@color/black"
         android:layout_toEndOf="@id/car_imageview"
-        android:layout_below="@id/ticketid"
-        android:text="Lược  "/>
-
+        android:layout_below="@id/name"
+        android:text="From:" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/iconarrow"
+        android:layout_toRightOf="@id/position_from"
+        android:layout_below="@id/name"
+        android:layout_marginTop="3.5dp"/>
+    <TextView
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/position_to"
+        android:textColor="@color/black"
+        android:layout_toRightOf="@id/position_from"
+        android:layout_below="@id/name"
+        android:layout_marginLeft="20dp"
+        android:text="To:"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/time"
         android:textColor="@color/black"
-        android:layout_toRightOf="@id/turn"
-        android:layout_below="@id/ticketid"
-        android:layout_marginLeft="150dp"
-        android:text="Thời gian : "/>
+        android:layout_toRightOf="@id/date"
+        android:layout_below="@id/position_to"
+
+        android:text="Time"/>
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:id="@+id/date"
         android:textColor="@color/black"
-        android:layout_below="@id/turn"
+        android:layout_below="@id/position_from"
         android:layout_toEndOf="@id/car_imageview"
-        android:text="Ngày : "/>
+        android:text="Date:"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,4 +71,5 @@
         android:layout_below="@id/date"
         android:layout_marginTop="10dp"
         android:background="@color/grey"/>
+
 </RelativeLayout>
