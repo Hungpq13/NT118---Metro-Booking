@@ -94,44 +94,13 @@
                 android:clickable="true"
                 app:cardBackgroundColor="@color/white"/>
 
-                <Button
-                    android:id="@+id/btn_setting"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/iconsetting"
-                    android:drawableRight="@drawable/iconnext"
-                    android:text="@string/setting"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|start"
-                    android:paddingStart="20dp"
-                    android:drawablePadding="10dp"
-                    android:paddingEnd="20dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="5dp">
-                <Button
-                    android:id="@+id/btn_area"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/iconloca"
-                    android:drawableRight="@drawable/iconnext"
-                    android:text="@string/change_location"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|start"
-                    android:paddingStart="20dp"
-                    android:drawablePadding="10dp"
-                    android:paddingEnd="20dp"/>
-        </LinearLayout>
+            android:layout_marginTop="5dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -161,23 +130,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="5dp">
-                <Button
-                    android:id="@+id/btn_infocompany"
-                    android:layout_width="380dp"
-                    android:layout_height="60dp"
-                    android:backgroundTint="@color/white"
-                    android:drawableLeft="@drawable/iconinfo"
-                    android:drawableRight="@drawable/iconnext"
-                    android:text="@string/info_company"
-                    android:textColor="@color/black"
-                    android:textAllCaps="false"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical|start"
-                    android:paddingStart="20dp"
-                    android:drawablePadding="10dp"
-                    android:paddingEnd="20dp"/>
-        </LinearLayout>
+            android:layout_marginTop="5dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

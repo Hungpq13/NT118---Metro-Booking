@@ -4,17 +4,15 @@ import java.sql.Time;
 
 public class Item {
     int image;
-    String name;
-    String position_from;
-    String position_to;
+    String ticketid;
+    String turn;
     String time;
     String date;
 
-    public Item(int image, String name, String position_from, String position_to, String time, String date) {
+    public Item(int image, String ticketid, String turn , String time, String date) {
         this.image = image;
-        this.name = name;
-        this.position_from = position_from;
-        this.position_to = position_to;
+        this.ticketid = ticketid;
+        this.turn = turn;
         this.time = time;
         this.date = date;
     }
@@ -27,29 +25,22 @@ public class Item {
         this.image = image;
     }
 
-    public String getName() {
-        return name;
+    public String getTicketid() {
+        return ticketid;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTicketid(String ticketid) {
+        this.ticketid = ticketid;
     }
 
-    public String getPosition_from() {
-        return position_from;
+    public String getTurn() {
+        return turn;
     }
 
-    public void setPosition_from(String position_from) {
-        this.position_from = position_from;
+    public void setTurn(String turn) {
+        this.turn = turn;
     }
 
-    public String getPosition_to() {
-        return position_to;
-    }
-
-    public void setPosition_to(String position_to) {
-        this.position_to = position_to;
-    }
 
     public String getTime() {
         return time;
@@ -67,3 +58,4 @@ public class Item {
         this.date = date;
     }
 }
+

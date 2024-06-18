@@ -53,7 +53,7 @@ public class MenuActivity extends AppCompatActivity implements OnMapReadyCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_menu);
+        setContentView(R.layout.activity_home_page);
         Payment = findViewById(R.id.payment);
         metro = findViewById(R.id.metro);
         Search = findViewById(R.id.search);
@@ -72,7 +72,7 @@ public class MenuActivity extends AppCompatActivity implements OnMapReadyCallbac
         avatarImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, BookingHistory.class);
+                Intent intent = new Intent(MenuActivity.this, Personal.class);
                 startActivity(intent);
             }
         });
@@ -161,9 +161,4 @@ public class MenuActivity extends AppCompatActivity implements OnMapReadyCallbac
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-    }
-
-
-
-
-
+}

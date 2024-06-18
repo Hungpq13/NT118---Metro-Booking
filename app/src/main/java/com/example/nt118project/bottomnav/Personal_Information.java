@@ -1,4 +1,4 @@
-package com.example.nt118project.BookingHistory;
+package com.example.nt118project.bottomnav;
 
 import android.os.Bundle;
 import android.widget.Button;
@@ -11,17 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import android.view.View;
+
 import android.content.Intent;
 import android.provider.MediaStore;
-import androidx.annotation.Nullable;
 import android.net.Uri;
-import android.graphics.Bitmap;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.activity.result.ActivityResult;
 
 import com.example.nt118project.R;
 
