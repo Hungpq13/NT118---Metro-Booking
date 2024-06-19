@@ -24,7 +24,7 @@ public class BookedHistory extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_ticket);
+        setContentView(R.layout.activity_booked_history);
         back = findViewById(R.id.back);
         recyclerViewTickets = findViewById(R.id.recyclerViewTickets);
         recyclerViewTickets.setLayoutManager(new LinearLayoutManager(this));
