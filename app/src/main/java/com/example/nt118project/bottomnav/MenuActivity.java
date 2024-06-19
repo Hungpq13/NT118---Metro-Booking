@@ -1,163 +1,70 @@
 package com.example.nt118project.bottomnav;
 
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.drawable.Drawable;
-import android.location.Address;
-import android.location.Geocoder;
-import android.os.Bundle;
-import android.view.View;
-
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.example.nt118project.AdminSystem.AdminActivity;
-import com.example.nt118project.MainFunction.Main_payment;
-import com.example.nt118project.MainFunction.MapsActivity;
-import com.example.nt118project.MainFunction.NearStation1Activity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 import com.example.nt118project.R;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptor;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import android.os.Bundle;
+import android.view.MenuItem;
 
-import java.io.IOException;
-import java.util.List;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
+public class MenuActivity extends AppCompatActivity {
+    private BottomNavigationView mNavigationView;
+    private ViewPager mViewPager;
 
-public class MenuActivity extends AppCompatActivity implements OnMapReadyCallback {
-
-    Button metro ;
-    Button Search ;
-    Button Payment ;
-    TextView usernameTextView;
-    ImageView avatarImageView;
-    private GoogleMap mMap;
-    private SearchView searchView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_home_page);
-        Payment = findViewById(R.id.payment);
-        metro = findViewById(R.id.metro);
-        Search = findViewById(R.id.search);
-        avatarImageView = findViewById(R.id.avatarImageView);
-        usernameTextView = findViewById(R.id.usernameTextView);
 
+        mNavigationView = findViewById(R.id.bottom_navigation_bar);
+        mViewPager = findViewById(R.id.view_pager);
 
+        setUpViewPager();
 
-        Payment.setOnClickListener(new View.OnClickListener() {
+        mNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, Main_payment.class);
-                startActivity(intent);
-            }
-        });
-        avatarImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, Personal.class);
-                startActivity(intent);
-            }
-        });
-        usernameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MenuActivity.this, AdminActivity.class);
-                startActivity(intent);
-            }
-        });
-        Search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, NearStation1Activity.class);
-                startActivity(intent);
-            }
-        });
-        metro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, MapsActivity.class);
-                startActivity(intent);
-            }
-        });
-        searchView = findViewById(R.id.searchView);
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        if (mapFragment != null) {
-            mapFragment.getMapAsync(this);
-        }
-
-        // Make the SearchView auto-open
-        searchView.setIconifiedByDefault(false);
-        searchView.setIconified(false);
-        searchView.requestFocusFromTouch();
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                String location = searchView.getQuery().toString();
-                List<Address> addressList = null;
-
-                if (location != null || !location.equals("")) {
-                    Geocoder geocoder = new Geocoder(MenuActivity.this);
-                    try {
-                        addressList = geocoder.getFromLocationName(location,1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                    if (addressList != null && addressList.size() > 0) {
-                        Address address = addressList.get(0);
-                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                    } else {
-                        Toast.makeText(MenuActivity.this, "Vị trí không hợp lệ !", Toast.LENGTH_SHORT).show();
-                    }
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.action_home) {
+                    mViewPager.setCurrentItem(0);
+                    return true;
+                } else if (itemId == R.id.action_notification) {
+                    mViewPager.setCurrentItem(1);
+                    return true;
+                } else if (itemId == R.id.action_love) {
+                    mViewPager.setCurrentItem(2);
+                    return true;
+                } else if (itemId == R.id.action_person) {
+                    mViewPager.setCurrentItem(3);
+                    return true;
                 }
                 return false;
             }
+        });
+
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
+            public void onPageSelected(int position) {
+                mNavigationView.getMenu().getItem(position).setChecked(true);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
             }
         });
     }
-    @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
-        mMap = googleMap;
 
-        // Default location
-        LatLng defaultLocation = new LatLng(10.8700, 106.8032);
-        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("you").icon(BitmapDescriptorFactory.fromResource(R.drawable.markeruser)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation,15));
+    private void setUpViewPager() {
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        mViewPager.setAdapter(viewPagerAdapter);
     }
-
-    private BitmapDescriptor bitmapDescriptor(Context context, int vectorResid)
-    {
-        Drawable VectorDrawable = ContextCompat.getDrawable(context , vectorResid);
-        VectorDrawable.setBounds(0 ,0,VectorDrawable.getIntrinsicWidth(),VectorDrawable.getIntrinsicHeight());
-        Bitmap bitmap = Bitmap.createBitmap(VectorDrawable.getIntrinsicWidth(),VectorDrawable.getIntrinsicHeight(),Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        VectorDrawable.draw(canvas);
-        return BitmapDescriptorFactory.fromBitmap(bitmap);
-    }
-
 }

@@ -1,0 +1,88 @@
+<!-- res/layout/item_station.xml -->
+
+<RelativeLayout
+    android:id="@+id/favoritestation"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginVertical="5dp"
+    android:paddingVertical="10dp">
+
+    <TextView
+        android:id="@+id/trainLogo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/train"
+        android:gravity="center"
+        android:text="4"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/stationID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/trainLogo"
+        android:layout_marginStart="25dp"
+        android:text="Trạm 4"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:background="@drawable/radiustrain"
+        android:padding="8dp"
+        android:gravity="center"
+        android:layout_marginEnd="8dp" />
+
+    <TextView
+        android:layout_toEndOf="@+id/stationID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="120dp"
+        android:text="20k VNĐ"
+        android:textColor="@color/red"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/stationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/stationID"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="10dp"
+        android:text="Bến Thành - Suối Tiên"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <ImageView
+        android:id="@+id/timeLogo"
+        android:layout_below="@id/stationName"
+        android:layout_width="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_height="50dp"
+        android:src="@drawable/clock"
+        android:layout_marginEnd="16dp" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/stationName"
+        android:layout_toEndOf="@id/timeLogo"
+        android:text="Thời gian diễn ra 5:30 - 22:30"
+        android:textSize="17sp" />
+
+    <ImageButton
+        android:id="@+id/remove_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@id/stationName"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@id/time"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/remove"
+        android:contentDescription="Xóa" />
+</RelativeLayout>

@@ -11,4 +11,7 @@
     <string name="update_data">Vé đã đặt</string>
     <string name="info_company">Thông tin công ty</string>
     <string name="logout">Đăng xuất</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="spinner_prompt">Hãy thêm tuyến yêu thích</string>
 </resources>

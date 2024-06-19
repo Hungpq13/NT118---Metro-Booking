@@ -10,7 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nt118project.R;
-import com.example.nt118project.bottomnav.Personal;
+import com.example.nt118project.bottomnav.MenuActivity;
+import com.example.nt118project.bottomnav.PersonalFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class BookedHistory extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(BookedHistory.this, Personal.class);
+                Intent intent = new Intent(BookedHistory.this, PersonalFragment.class);
                 startActivity(intent);
             }
         });

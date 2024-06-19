@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".bottomnav.NotificationFragment">
+
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+       >
+        <LinearLayout
+            android:id="@+id/topview"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:background="@color/blue"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/personal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="Thông báo"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+        <TextView
+            android:id="@+id/no_notifications_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không có thông báo nào"
+            android:textSize="18sp"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notifications_recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+           android:layout_below="@+id/topview"
+            />
+
+    </RelativeLayout>
+
+
+</FrameLayout>

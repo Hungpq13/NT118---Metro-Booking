@@ -22,7 +22,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.nt118project.R;
-import com.example.nt118project.bottomnav.Personal;
+import com.example.nt118project.bottomnav.PersonalFragment;
 
 import java.util.Calendar;
 
@@ -82,7 +82,7 @@ public class information_personal extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 saveChangesAll();
-                startActivity(new Intent(information_personal.this, Personal.class));
+                startActivity(new Intent(information_personal.this, PersonalFragment.class));
             }
         });
 
