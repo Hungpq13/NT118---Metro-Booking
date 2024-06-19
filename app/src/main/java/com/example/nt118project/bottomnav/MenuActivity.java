@@ -22,7 +22,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nt118project.AdminSystem.AdminActivity;
-import com.example.nt118project.BookingHistory.BookingHistory;
 import com.example.nt118project.MainFunction.Main_payment;
 import com.example.nt118project.MainFunction.MapsActivity;
 import com.example.nt118project.MainFunction.NearStation1Activity;
@@ -35,7 +34,7 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.location.FusedLocationProviderClient;
+
 import java.io.IOException;
 import java.util.List;
 

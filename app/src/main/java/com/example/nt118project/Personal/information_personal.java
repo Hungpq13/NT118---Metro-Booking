@@ -1,4 +1,4 @@
-package com.example.nt118project.bottomnav;
+package com.example.nt118project.Personal;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -21,9 +21,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.nt118project.AdminSystem.AdminActivity;
-import com.example.nt118project.Auth.Login;
 import com.example.nt118project.R;
+import com.example.nt118project.bottomnav.Personal;
 
 import java.util.Calendar;
 

@@ -46,7 +46,8 @@ public class Main_payment extends AppCompatActivity {
         });
         ArrayList<String> arrayLoaiVe = new ArrayList<>();
         arrayLoaiVe.add("Chọn loại vé");
-        arrayLoaiVe.add("Vé 1 chiều");
+        arrayLoaiVe.add("Vé đi");
+        arrayLoaiVe.add("Vé về");
         arrayLoaiVe.add("Vé 2 chiều");
 
         ArrayList<String> arraysThanhtoan = new ArrayList<>();
@@ -65,7 +66,7 @@ public class Main_payment extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) parent.getItemAtPosition(position);
-                if (selectedItem.equals("Vé 1 chiều")) {
+                if (selectedItem.equals("Vé đi")|| selectedItem.equals("Vé về") ) {
                     Giatien.setText("20.000 VND");
                 } else if (selectedItem.equals("Vé 2 chiều")) {
                     Giatien.setText("40.000 VND");
