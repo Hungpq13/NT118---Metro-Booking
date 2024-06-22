@@ -2,15 +2,15 @@ package com.example.nt118project.AdminSystem;
 
 public class Ticket {
     private String buyerName;
-    private String purchaseTime;
-    private String ticketType;
-    private String ticketCode;
+    private String time;
+    private String turn;
+    private String ticketid;
 
-    public Ticket(String buyerName, String purchaseTime, String ticketType, String ticketCode) {
+    public Ticket(String buyerName, String time, String turn, String ticketid) {
         this.buyerName = buyerName;
-        this.purchaseTime = purchaseTime;
-        this.ticketType = ticketType;
-        this.ticketCode = ticketCode;
+        this.time = time;
+        this.turn = turn;
+        this.ticketid = ticketid;
     }
 
     public String getBuyerName() {
@@ -21,27 +21,27 @@ public class Ticket {
         this.buyerName = buyerName;
     }
 
-    public String getPurchaseTime() {
-        return purchaseTime;
+    public String gettime() {
+        return time;
     }
 
-    public void setPurchaseTime(String purchaseTime) {
-        this.purchaseTime = purchaseTime;
+    public void settime(String time) {
+        this.time = time;
     }
 
-    public String getTicketType() {
-        return ticketType;
+    public String getturn() {
+        return turn;
     }
 
-    public void setTicketType(String ticketType) {
-        this.ticketType = ticketType;
+    public void setturn(String turn) {
+        this.turn = turn;
     }
 
-    public String getTicketCode() {
-        return ticketCode;
+    public String getticketid() {
+        return ticketid;
     }
 
-    public void setTicketCode(String ticketCode) {
-        this.ticketCode = ticketCode;
+    public void setticketid(String ticketid) {
+        this.ticketid = ticketid;
     }
 }

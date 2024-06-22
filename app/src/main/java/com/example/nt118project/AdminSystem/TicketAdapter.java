@@ -29,9 +29,9 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
     public void onBindViewHolder(@NonNull TicketViewHolder holder, int position) {
         Ticket ticket = ticketList.get(position);
         holder.tvBuyerName.setText(ticket.getBuyerName());
-        holder.tvPurchaseTime.setText(ticket.getPurchaseTime());
-        holder.tvTicketType.setText(ticket.getTicketType());
-        holder.tvTicketCode.setText(ticket.getTicketCode());
+        holder.tvPurchaseTime.setText(ticket.gettime());
+        holder.tvTicketType.setText(ticket.getturn());
+        holder.tvticketid.setText(ticket.getticketid());
     }
 
     @Override
@@ -44,14 +44,14 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketView
         TextView tvBuyerName;
         TextView tvPurchaseTime;
         TextView tvTicketType;
-        TextView tvTicketCode;
+        TextView tvticketid;
 
         public TicketViewHolder(@NonNull View itemView) {
             super(itemView);
             tvBuyerName = itemView.findViewById(R.id.tvBuyerName);
             tvPurchaseTime = itemView.findViewById(R.id.tvPurchaseTime);
             tvTicketType = itemView.findViewById(R.id.tvTicketType);
-            tvTicketCode = itemView.findViewById(R.id.tvTicketCode);
+            tvticketid = itemView.findViewById(R.id.tvTicketCode);
         }
     }
 }

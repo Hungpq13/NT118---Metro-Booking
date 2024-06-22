@@ -38,8 +38,7 @@ android:elevation="4dp">
         android:layout_height="wrap_content"
         android:text="tình trạng"
         android:textStyle="bold"
-        android:textSize="14sp"
-        android:textColor="@color/red" />
+        android:textSize="14sp" />
 
 </LinearLayout>
 
