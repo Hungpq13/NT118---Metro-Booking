@@ -17,7 +17,6 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/train"
         android:gravity="center"
-        android:text="4"
         android:textColor="@color/white"
         android:textSize="20sp" />
 
@@ -41,9 +40,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="120dp"
-        android:text="20k VNĐ"
+        android:text="20K VNĐ"
         android:textColor="@color/red"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/stationName"
@@ -54,12 +53,12 @@
         android:layout_marginTop="10dp"
         android:text="Bến Thành - Suối Tiên"
         android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:textSize="14sp" />
 
     <ImageView
         android:id="@+id/timeLogo"
         android:layout_below="@id/stationName"
-        android:layout_width="50dp"
+        android:layout_width="20dp"
         android:layout_marginStart="16dp"
         android:layout_height="50dp"
         android:src="@drawable/clock"
@@ -74,7 +73,7 @@
         android:layout_below="@id/stationName"
         android:layout_toEndOf="@id/timeLogo"
         android:text="Thời gian diễn ra 5:30 - 22:30"
-        android:textSize="17sp" />
+        android:textSize="14sp" />
 
     <ImageButton
         android:id="@+id/remove_button"

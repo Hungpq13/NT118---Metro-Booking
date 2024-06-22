@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private Button metro;
     private Button search;
     private Button payment;
-    private TextView usernameTextView;
+
     private GoogleMap mMap;
     private SearchView searchView;
 
@@ -60,7 +60,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         payment = view.findViewById(R.id.payment);
         metro = view.findViewById(R.id.metro);
         search = view.findViewById(R.id.search);
-        usernameTextView = view.findViewById(R.id.usernameTextView);
+
         searchView = view.findViewById(R.id.searchView);
 
         // Set up click listeners
@@ -121,13 +121,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
 
 
-        usernameTextView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), AdminActivity.class);
-                startActivity(intent);
-            }
-        });
+
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,7 +154,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         // Default location
         LatLng defaultLocation = new LatLng(10.8700, 106.8032);
         mMap.addMarker(new MarkerOptions().position(defaultLocation).title("you").icon(BitmapDescriptorFactory.fromResource(R.drawable.markeruser)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 20));
     }
 
     private BitmapDescriptor bitmapDescriptor(Context context, int vectorResid) {
