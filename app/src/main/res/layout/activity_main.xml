@@ -58,7 +58,7 @@ android:background="@color/white"
        android:layout_marginStart="16dp"
        android:layout_marginEnd="16dp"
        android:layout_marginBottom="10dp"
-       android:text="Số Điện Thoại"
+       android:text="Email"
        android:textSize="15sp"
        android:textStyle="bold" />
 
@@ -71,7 +71,7 @@ android:background="@color/white"
        android:background="@drawable/signin_border"
        android:ems="10"
        android:layout_marginTop="5dp"
-       android:hint="Hãy nhập số điện thoại đã đăng ký"
+       android:hint="Hãy nhập email đã đăng kí"
        android:inputType="text"
        android:paddingLeft="5dp"
        android:textSize="13sp" />
