@@ -21,10 +21,13 @@ public class Register extends AppCompatActivity {
     Button btnSignUp;
     FirebaseDatabase database;
     DatabaseReference reference;
+    SharedPreferenceHelper sharedPreferenceHelper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        sharedPreferenceHelper = new SharedPreferenceHelper(this);
 
         txtEmail = findViewById(R.id.txtEmail);
         txtUsername = findViewById(R.id.txtUsername);
@@ -42,6 +45,10 @@ public class Register extends AppCompatActivity {
                    DataUser DataUser = new DataUser(name, email, password);
 
                    Toast.makeText(Register.this, "Bạn đã đăng ký thành công !", Toast.LENGTH_SHORT).show();
+
+                   sharedPreferenceHelper.setUserName(name);
+                   sharedPreferenceHelper.setUserEmail(email);
+                   sharedPreferenceHelper.setUserPhone("092369462");
 
                    Authentication.signUpWithEmailPassword(email, password);
 

@@ -16,12 +16,19 @@ import com.example.nt118project.bottomnav.MenuActivity;
 import com.example.nt118project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class Login extends AppCompatActivity {
     EditText inputNumberPhone, inputPassword;
     Button btnSignIn;
     TextView TextSignUp ;
     SharedPreferenceHelper sharedPreferences;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +67,20 @@ public class Login extends AppCompatActivity {
                                         Log.v("Debug", "Đăng nhập thành công");
                                         Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
 
+                                        firebaseFirestore.collection("Users").whereEqualTo("UserId", mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                for (DocumentSnapshot document : task.getResult()) {
+                                                    Log.v("TAG", document.getString("Name"));
+                                                    sharedPreferences.setUserName(document.getString("Name"));
+                                                    sharedPreferences.setUserEmail(document.getString("Email"));
+                                                    sharedPreferences.setUserPhone(document.getString("Phone"));
+                                                }
+                                            }
+                                        });
+
+                                        sharedPreferences.setUserId(mAuth.getUid());
+                                        Log.v("TAG", mAuth.getUid().toString());
                                         sharedPreferences.setLogging(true);
                                         sharedPreferences.setRoleID(2);
                                         Authorization.signInWithRole(2, getApplicationContext());

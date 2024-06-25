@@ -1,6 +1,6 @@
 package com.example.nt118project.bottomnav;
 
-import android.content.Intent;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,12 +17,21 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nt118project.MainFunction.NearStation1Activity;
-import com.example.nt118project.MainFunction.NearStation2Activity;
+import com.example.nt118project.Auth.SharedPreferenceHelper;
 import com.example.nt118project.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class FavoriteFragment extends Fragment {
 
@@ -30,10 +40,12 @@ public class FavoriteFragment extends Fragment {
     private FavoriteStationsAdapter favoriteStationsAdapter;
     private List<FavoriteStation> favoriteStations;
     private List<FavoriteStation> allStations;
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private SharedPreferenceHelper sharedPreferenceHelper;
 
-    RelativeLayout favoritestation ;
+    RelativeLayout favoritestation;
+
     public FavoriteFragment() {
-        // Required empty public constructor
     }
 
     @Nullable
@@ -43,8 +55,20 @@ public class FavoriteFragment extends Fragment {
 
         stationSpinner = view.findViewById(R.id.station_spinner);
         favoriteStationsRecyclerView = view.findViewById(R.id.favorite_stations_recyclerview);
-        // Initialize favorite stations list
         favoriteStations = new ArrayList<>();
+        sharedPreferenceHelper = new SharedPreferenceHelper(getActivity().getApplicationContext());
+
+        firebaseFirestore.collection("FavoriteStation").whereEqualTo("UserId", sharedPreferenceHelper.getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        favoriteStations.add(new FavoriteStation(document.getId(), document.getString("name")));
+                    }
+                    favoriteStationsAdapter.notifyDataSetChanged();
+                }
+            }
+        });
 
         // Initialize all stations list
         allStations = getStations();
@@ -100,16 +124,82 @@ public class FavoriteFragment extends Fragment {
 
     private void addStation(FavoriteStation station) {
         if (!favoriteStations.contains(station)) {
-            favoriteStations.add(station);
-            favoriteStationsAdapter.notifyDataSetChanged();
+            firebaseFirestore.collection("FavoriteStation").whereEqualTo("UserId", sharedPreferenceHelper.getUserId()).whereEqualTo("name", station.getName()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        if (!task.getResult().isEmpty()) {
+                            Toast.makeText(getActivity().getApplicationContext(), "Trạm đã được yêu thích", Toast.LENGTH_SHORT).show();
+                        } else {
+
+                            Map<String, Object> data = new HashMap<>();
+                            data.put("UserId", sharedPreferenceHelper.getUserId());
+                            data.put("name", station.getName());
+
+                            firebaseFirestore.collection("FavoriteStation").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @SuppressLint("NotifyDataSetChanged")
+                                @Override
+                                public void onSuccess(DocumentReference documentReference) {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Thêm trạm thành công", Toast.LENGTH_SHORT).show();
+                                    favoriteStations.add(station);
+                                    favoriteStationsAdapter.notifyDataSetChanged();
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Toast.makeText(getActivity().getApplicationContext(), "Lỗi khi thêm trạm", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        }
+                    } else {
+                        Toast.makeText(getActivity().getApplicationContext(), "Lỗi khi kiểm tra trạm", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 
+
     private void removeStation(FavoriteStation station) {
-        favoriteStations.remove(station);
-        favoriteStationsAdapter.notifyDataSetChanged();
-        updateSpinnerAdapter();
+        if (favoriteStations.contains(station)) {
+            firebaseFirestore.collection("FavoriteStation")
+                    .whereEqualTo("UserId", sharedPreferenceHelper.getUserId())
+                    .whereEqualTo("name", station.getName())
+                    .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                                for (DocumentSnapshot document : task.getResult()) {
+                                    firebaseFirestore.collection("FavoriteStation")
+                                            .document(document.getId())
+                                            .delete()
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                @Override
+                                                public void onSuccess(Void aVoid) {
+                                                    favoriteStations.remove(station);
+                                                    favoriteStationsAdapter.notifyDataSetChanged();
+                                                    updateSpinnerAdapter();
+                                                    Toast.makeText(getActivity().getApplicationContext(), "Xóa trạm thành công", Toast.LENGTH_SHORT).show();
+                                                }
+                                            })
+                                            .addOnFailureListener(new OnFailureListener() {
+                                                @Override
+                                                public void onFailure(@NonNull Exception e) {
+                                                    Toast.makeText(getActivity().getApplicationContext(), "Lỗi khi xóa trạm", Toast.LENGTH_SHORT).show();
+                                                }
+                                            });
+                                }
+                            } else {
+                                Toast.makeText(getActivity().getApplicationContext(), "Không tìm thấy trạm để xóa", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+        } else {
+            Toast.makeText(getActivity().getApplicationContext(), "Trạm không tồn tại trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
+        }
     }
+
 
     private void updateSpinnerAdapter() {
         List<FavoriteStation> availableStations = new ArrayList<>();
