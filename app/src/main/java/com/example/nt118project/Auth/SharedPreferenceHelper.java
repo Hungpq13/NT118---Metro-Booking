@@ -24,13 +24,13 @@ public class SharedPreferenceHelper {
         return mPref.getBoolean("isLogging", false);
     }
 
-    public void setRoleID(int roleID) {
-        mEditor.putInt("roleID", roleID);
+    public void setRoleID(String roleID) {
+        mEditor.putString("roleID", roleID);
         mEditor.commit();
     }
 
-    public int getRoleID() {
-        return mPref.getInt("roleID", 0);
+    public String getRoleID() {
+        return mPref.getString("roleID", "2");
     }
 
     public void setUserId(String userId) {

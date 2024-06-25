@@ -1,6 +1,7 @@
 package com.example.nt118project.Auth;
 
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,13 +16,18 @@ import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+
 public class Register extends AppCompatActivity {
-    EditText txtEmail,txtUsername,txtPassword,txtConPassword;
+    EditText txtEmail, txtUsername, txtPassword, txtConPassword;
     TextView loginRedirectText;
     Button btnSignUp;
-    FirebaseDatabase database;
+    FirebaseFirestore firebaseFirestore;
     DatabaseReference reference;
     SharedPreferenceHelper sharedPreferenceHelper;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,22 +45,24 @@ public class Register extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   String name = txtUsername.getText().toString();
-                   String email = txtEmail.getText().toString();
-                   String password = txtPassword.getText().toString();
-                   DataUser DataUser = new DataUser(name, email, password);
+                String name = txtUsername.getText().toString();
+                String email = txtEmail.getText().toString();
+                String password = txtPassword.getText().toString();
+                DataUser DataUser = new DataUser(name, email, password);
 
-                   Toast.makeText(Register.this, "Bạn đã đăng ký thành công !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Register.this, "Bạn đã đăng ký thành công !", Toast.LENGTH_SHORT).show();
 
-                   sharedPreferenceHelper.setUserName(name);
-                   sharedPreferenceHelper.setUserEmail(email);
-                   sharedPreferenceHelper.setUserPhone("092369462");
+                sharedPreferenceHelper.setUserName(name);
+                sharedPreferenceHelper.setUserEmail(email);
+                sharedPreferenceHelper.setUserPhone("092369462");
 
-                   Authentication.signUpWithEmailPassword(email, password);
+                Authentication.signUpWithEmailPassword(name, email, password);
 
-                   Intent intent = new Intent(Register.this, Login.class);
-                   startActivity(intent);
-               }
+
+
+                Intent intent = new Intent(Register.this, Login.class);
+                startActivity(intent);
+            }
         });
         loginRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override

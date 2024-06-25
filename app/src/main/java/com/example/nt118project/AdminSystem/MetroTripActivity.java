@@ -4,16 +4,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-import com.example.nt118project.R;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.nt118project.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,21 +30,44 @@ public class MetroTripActivity extends AppCompatActivity implements MetroTripAda
     private RecyclerView recyclerViewMetroTrips;
     private MetroTripAdapter metroTripAdapter;
     private List<MetroTrip> metroTripList;
-    ImageView back ;
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+    ImageView back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_metro_trip);
+
         back = findViewById(R.id.back);
         recyclerViewMetroTrips = findViewById(R.id.recyclerViewMetroTrips);
         recyclerViewMetroTrips.setLayoutManager(new LinearLayoutManager(this));
 
         metroTripList = new ArrayList<>();
-        metroTripList.add(new MetroTrip("Trạm Bến Thành", "Di chuyển"));
-        metroTripList.add(new MetroTrip("Trạm Ba Son", "Tạm hoãn"));
+
+        // Fetch metro trips from Firestore
+        firebaseFirestore.collection("Station").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    metroTripList.clear(); // Clear existing list before adding new data
+
+                    // Populate metroTripList with data from Firestore
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                        metroTripList.add(new MetroTrip(documentSnapshot.getString("StationName"), documentSnapshot.getString("StationStatus")));
+                    }
+
+                    // Initialize adapter with updated metroTripList
+                    metroTripAdapter.notifyDataSetChanged(); // Notify adapter about data changes
+                } else {
+                    Toast.makeText(MetroTripActivity.this, "Error fetching metro trips: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         metroTripAdapter = new MetroTripAdapter(metroTripList, this);
         recyclerViewMetroTrips.setAdapter(metroTripAdapter);
+
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

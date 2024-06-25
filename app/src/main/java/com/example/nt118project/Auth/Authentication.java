@@ -29,15 +29,19 @@ public class Authentication {
     private static final FirebaseFirestore mFirestore = FirebaseFirestore.getInstance();
     private SharedPreferenceHelper sharedPreference;
 
-    static public void signUpWithEmailPassword(String email, String password) {
+    static public void signUpWithEmailPassword(String name, String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Log.d("Authentication", "signInWithEmail:success");
 
-                    Map<String, Object> data = new HashMap<>();
-                    data.put("UserId", mAuth.getCurrentUser().getUid());
+                    HashMap<String, String> data = new HashMap<>();
+                    data.put("Name", name);
+                    data.put("Email", email);
+                    data.put("Password", password);
+                    data.put("Role", "2");
+                    data.put("UserId", mAuth.getUid());
                     mFirestore.collection("Users").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
