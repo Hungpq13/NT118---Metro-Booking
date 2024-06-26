@@ -122,6 +122,7 @@ public class Main_payment extends AppCompatActivity {
 
                 Map<String, Object> data = new HashMap<>();
                 data.put("UserId", sharedPreferenceHelper.getUserId());
+                data.put("buyerName", sharedPreferenceHelper.getUserName());
                 data.put("date", date);
                 data.put("time", time);
                 data.put("turn", ticketType);

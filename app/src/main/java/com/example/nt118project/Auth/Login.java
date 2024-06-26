@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nt118project.AdminSystem.AdminActivity;
 import com.example.nt118project.bottomnav.MenuActivity;
 import com.example.nt118project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class Login extends AppCompatActivity {
     SharedPreferenceHelper sharedPreferences;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    String roleId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +39,18 @@ public class Login extends AppCompatActivity {
         sharedPreferences = new SharedPreferenceHelper(getApplicationContext());
 
         if(sharedPreferences.getLogging()) {
-            Intent intent = new Intent(Login.this, MenuActivity.class);
-            startActivity(intent);
-            finish();
+//            String roleId = sharedPreferences.getRoleID();
+            String roleId = sharedPreferences.getRoleID();
+            if(roleId.equals("2")) {
+                Intent intent = new Intent(Login.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(Login.this, AdminActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
 
         inputNumberPhone = findViewById(R.id.inputNumberPhone);
@@ -71,19 +82,16 @@ public class Login extends AppCompatActivity {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                                 for (DocumentSnapshot document : task.getResult()) {
-                                                    Log.v("TAG", document.getString("Name"));
+                                                    sharedPreferences.setUserId(document.getString("UserId"));
                                                     sharedPreferences.setUserName(document.getString("Name"));
                                                     sharedPreferences.setUserEmail(document.getString("Email"));
                                                     sharedPreferences.setUserPhone(document.getString("Phone"));
+                                                    sharedPreferences.setRoleID(document.getString("Role"));
                                                 }
                                             }
                                         });
-
-                                        sharedPreferences.setUserId(mAuth.getUid());
-                                        Log.v("TAG", mAuth.getUid().toString());
                                         sharedPreferences.setLogging(true);
-                                        sharedPreferences.setRoleID(2);
-                                        Authorization.signInWithRole(2, getApplicationContext());
+                                        Authorization.signInWithRole(sharedPreferences.getRoleID(), getApplicationContext());
 
                                         finish();
                                     } else {

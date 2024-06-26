@@ -63,7 +63,7 @@ public class FavoriteFragment extends Fragment {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (DocumentSnapshot document : task.getResult()) {
-                        favoriteStations.add(new FavoriteStation(document.getId(), document.getString("name")));
+                        favoriteStations.add(new FavoriteStation(document.getString("StationId"), document.getString("name")));
                     }
                     favoriteStationsAdapter.notifyDataSetChanged();
                 }
@@ -134,6 +134,7 @@ public class FavoriteFragment extends Fragment {
 
                             Map<String, Object> data = new HashMap<>();
                             data.put("UserId", sharedPreferenceHelper.getUserId());
+                            data.put("StationId", station.getId());
                             data.put("name", station.getName());
 
                             firebaseFirestore.collection("FavoriteStation").add(data).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
