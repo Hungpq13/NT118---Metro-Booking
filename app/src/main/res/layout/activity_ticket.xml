@@ -34,15 +34,36 @@ android:orientation="vertical">
         android:textColor="@color/white"
         android:paddingTop="70dp"
         />
+
 </RelativeLayout>
+    <!-- Button Container -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btnViewAllTickets"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Xem tất cả vé"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/btnDatePicker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn ngày"
+            android:backgroundTint="@color/blue"
+            android:textColor="@color/white" />
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewTickets"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-<Button
-    android:id="@+id/btnAddUser"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Thêm Người Dùng" />
 </LinearLayout>

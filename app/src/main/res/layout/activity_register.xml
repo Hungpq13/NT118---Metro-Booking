@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools" android:background="@color/white" android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="132dp"
@@ -12,6 +18,7 @@
         app:layout_constraintVertical_bias="0.053"
         tools:srcCompat="@tools:sample/backgrounds/scenic"
         android:visibility="gone"/>
+
     <TextView
         android:id="@+id/vwSignIn"
         android:layout_width="wrap_content"
@@ -27,6 +34,7 @@
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_bias="0.037"/>
+
     <TextView
         android:id="@+id/vwdist"
         android:layout_width="wrap_content"
@@ -39,6 +47,7 @@
         app:layout_constraintStart_toStartOf="@+id/vwSignIn"
         app:layout_constraintTop_toBottomOf="@+id/vwSignIn"
         app:layout_constraintVertical_bias="0.015"/>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="280dp"
@@ -49,6 +58,7 @@
         app:layout_constraintStart_toStartOf="@+id/vwdist"
         app:layout_constraintTop_toBottomOf="@+id/vwdist"
         app:layout_constraintVertical_bias="0.06999999">
+
         <EditText
             android:id="@+id/txtEmail"
             android:layout_width="260dp"
@@ -61,6 +71,7 @@
             android:inputType="text"
             android:paddingLeft="5dp"/>
     </LinearLayout>
+
     <EditText
         android:id="@+id/txtUsername"
         android:layout_width="260dp"
@@ -80,6 +91,54 @@
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.057"/>
+
+    <!-- Date of Birth field -->
+    <EditText
+        android:id="@+id/txtDob"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="Ngày sinh"
+        android:inputType="none"
+        android:focusable="false"
+        android:clickable="true"
+        android:paddingLeft="5dp"
+        android:textColorHint="#2B6BA3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtUsername"
+        app:layout_constraintStart_toStartOf="@+id/txtUsername"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername"
+        app:layout_constraintVertical_bias="0.057"/>
+
+    <!-- Gender field -->
+    <Spinner
+        android:id="@+id/spinnerGender"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:paddingLeft="5dp"
+        android:entries="@array/gender_array"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/txtDob"
+        app:layout_constraintStart_toStartOf="@+id/txtDob"
+        app:layout_constraintTop_toBottomOf="@+id/txtDob"
+        app:layout_constraintVertical_bias="0.057"/>
+
+    <!-- Phone Number field -->
+    <EditText
+        android:id="@+id/txtPhone"
+        android:layout_width="260dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="Số điện thoại"
+        android:inputType="phone"
+        android:paddingLeft="5dp"
+        android:textColorHint="#2B6BA3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerGender"
+        app:layout_constraintStart_toStartOf="@+id/spinnerGender"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerGender"
+        app:layout_constraintVertical_bias="0.057"/>
+
     <LinearLayout
         android:id="@+id/linearLayout_password"
         android:layout_width="260dp"
@@ -88,10 +147,11 @@
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/txtUsername"
-        app:layout_constraintStart_toStartOf="@+id/txtUsername"
-        app:layout_constraintTop_toBottomOf="@+id/txtUsername"
+        app:layout_constraintEnd_toEndOf="@+id/txtPhone"
+        app:layout_constraintStart_toStartOf="@+id/txtPhone"
+        app:layout_constraintTop_toBottomOf="@+id/txtPhone"
         app:layout_constraintVertical_bias="0.06999999">
+
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="260dp"
@@ -106,11 +166,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="0.06999999"/>
+
         <ImageView
             android:id="@+id/btn_visible"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout_password_again"
         android:layout_width="260dp"
@@ -123,6 +185,7 @@
         app:layout_constraintStart_toStartOf="@+id/linearLayout_password"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout_password"
         app:layout_constraintVertical_bias="0.06999999">
+
         <EditText
             android:id="@+id/txtConPassword"
             android:layout_width="260dp"
@@ -138,6 +201,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:layout_constraintVertical_bias="0.06999999"/>
     </LinearLayout>
+
     <Button
         android:id="@+id/btnSignUp"
         android:layout_width="330dp"
@@ -164,6 +228,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnSignUp"
         app:layout_constraintVertical_bias="0.323" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
