@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.nt118project.AdminSystem.AdminActivity;
+import com.example.nt118project.Auth.SharedPreferenceHelper;
 import com.example.nt118project.MainFunction.Main_payment;
 import com.example.nt118project.MainFunction.MapsActivity;
 import com.example.nt118project.MainFunction.NearStation1Activity;
@@ -46,6 +47,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private SearchView searchView;
+    private SharedPreferenceHelper sharedPreferenceHelper;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -60,11 +62,15 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         payment = view.findViewById(R.id.payment);
         metro = view.findViewById(R.id.metro);
         search = view.findViewById(R.id.search);
+        sharedPreferenceHelper = new SharedPreferenceHelper(getActivity().getApplicationContext());
 
         searchView = view.findViewById(R.id.searchView);
 
         // Set up click listeners
         setClickListeners();
+
+        TextView nameTv = view.findViewById(R.id.usernameTextView);
+        nameTv.setText(sharedPreferenceHelper.getUserName());
 
         // Set up Google Map
         setUpMap();
