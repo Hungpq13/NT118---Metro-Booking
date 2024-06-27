@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nt118project.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,6 +20,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class NearStation2Activity extends AppCompatActivity implements OnMapReadyCallback {
      ImageView back ;
      private GoogleMap gMap;
@@ -25,6 +30,9 @@ public class NearStation2Activity extends AppCompatActivity implements OnMapRead
      String stationName;
      TextView stationIDTextView, stationNameTextView;
      String stationDocumentID;
+    private RecyclerView recyclerView;
+    private AroundRouteAdapter adapter;
+    private List<Route> routeList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +50,17 @@ public class NearStation2Activity extends AppCompatActivity implements OnMapRead
 
         stationIDTextView.setText("Trạm " + stationID);
         stationNameTextView.setText(stationName);
+        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        routeList = new ArrayList<>();
+        routeList.add(new Route("Trạm 1", "Trạm Thảo Điền", "20 phút", "Di chuyển"));
+        routeList.add(new Route("Trạm 1", "Trạm Văn Thánh", "10 phút", "Tạm Hoãn"));
+        routeList.add(new Route("Trạm 1", "Trạm Ba Son", "5 phút", "Di chuyển"));
+        routeList.add(new Route("Trạm 1", "Trạm Suối Tiên", "25 phút", "Di chuyển"));
+        adapter = new AroundRouteAdapter(routeList);
+        recyclerView.setAdapter(adapter);
+
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
