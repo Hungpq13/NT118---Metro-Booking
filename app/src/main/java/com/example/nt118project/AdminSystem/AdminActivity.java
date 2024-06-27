@@ -34,7 +34,7 @@ public class AdminActivity extends AppCompatActivity {
                 sharedPreferenceHelper.clear();
                 Intent intent = new Intent(AdminActivity.this, Login.class);
                 startActivity(intent);
-                finishAffinity();
+                finish();
             }
         });
         customer = findViewById(R.id.customer);

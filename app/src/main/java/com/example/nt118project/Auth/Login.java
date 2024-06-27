@@ -75,7 +75,9 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Boolean isSuccess = task.getResult();
                                     if (isSuccess != null && isSuccess) {
+                                        Log.v("Debug", "Đăng nhập thành công");
                                         Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
+
                                         firebaseFirestore.collection("Users").whereEqualTo("UserId", mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -85,11 +87,12 @@ public class Login extends AppCompatActivity {
                                                     sharedPreferences.setUserEmail(document.getString("Email"));
                                                     sharedPreferences.setUserPhone(document.getString("Phone"));
                                                     sharedPreferences.setRoleID(document.getString("Role"));
-                                                    sharedPreferences.setLogging(true);
-                                                    Authorization.signInWithRole(document.getString("Role"), getApplicationContext());
                                                 }
                                             }
                                         });
+                                        sharedPreferences.setLogging(true);
+                                        Authorization.signInWithRole(sharedPreferences.getRoleID(), getApplicationContext());
+
                                         finish();
                                     } else {
                                         Log.v("Debug", "Đăng nhập thất bại");
