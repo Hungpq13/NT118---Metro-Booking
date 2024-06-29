@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
 
     <ImageView
@@ -13,16 +14,18 @@
         android:padding="10dp"
         android:layout_alignParentRight="true"
         android:layout_marginRight="50dp"
-        app:srcCompat="@drawable/momo"/>
+        app:srcCompat="@drawable/momo"
+        android:layout_marginTop="40dp"/>
     <TextView
         android:id="@+id/txt_momo"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_toLeftOf="@+id/momo"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="50dp"
         android:layout_marginLeft="30dp"
         android:text="Thanh toán momo"
         android:textColor="@color/black"
+        android:textStyle="bold"
         android:textSize="20dp"/>
 
     <ImageView
@@ -32,13 +35,14 @@
         android:layout_below="@+id/momo"
         android:layout_alignParentRight="true"
         android:layout_marginRight="50dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         app:srcCompat="@drawable/the"/>
     <TextView
         android:id="@+id/txt_the"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:text="Thanh toán ngân hàng"
+        android:textStyle="bold"
         android:layout_toLeftOf="@+id/the"
         android:layout_below="@+id/txt_momo"
         android:layout_marginTop="50dp"

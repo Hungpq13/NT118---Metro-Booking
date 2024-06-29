@@ -56,7 +56,8 @@
                 android:layout_height="30dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="44dp"
-                android:background="@drawable/ic_arrownarrowleft"/>
+                android:background="@drawable/ic_arrownarrowleft"
+                android:backgroundTint="@color/black"/>
 
         </LinearLayout>
 

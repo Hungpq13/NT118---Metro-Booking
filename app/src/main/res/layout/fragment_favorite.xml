@@ -3,7 +3,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:background="@drawable/background">
     <LinearLayout
         android:id="@+id/topview"
         android:layout_width="match_parent"
@@ -27,16 +27,18 @@
         android:id="@+id/station_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/topview"
-        android:prompt="@string/spinner_prompt" />
+        android:prompt="@string/spinner_prompt"
+        android:padding="20dp"/>
 
     <!-- RecyclerView for favorite stations -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/favorite_stations_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/station_spinner" />
+        android:layout_below="@id/station_spinner"
+        android:padding="20dp"/>
 
 </RelativeLayout>

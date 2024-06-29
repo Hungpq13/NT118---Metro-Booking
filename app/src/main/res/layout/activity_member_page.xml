@@ -3,17 +3,18 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/background">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp">
+        android:layout_height="150dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:orientation="vertical"
-            android:background="@drawable/bg_view"
+            android:background="@color/blue"
             android:layout_alignParentTop="true">
 
             <ImageView
@@ -22,7 +23,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="44dp"
-                android:background="@drawable/ic_arrownarrowleft" />
+                android:background="@drawable/ic_arrownarrowleft"
+                android:backgroundTint="@color/white"/>
         </LinearLayout>
 
         <TextView
@@ -41,11 +43,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="8dp" />
+        android:padding="20dp"/>
 
     <Button
         android:id="@+id/btnAddUser"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Thêm Người Dùng" />
+        android:layout_gravity="center_horizontal"
+        android:text="Thêm Người Dùng"
+        android:backgroundTint="@color/blue"
+        android:layout_marginBottom="100dp"/>
 </LinearLayout>

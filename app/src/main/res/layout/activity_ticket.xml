@@ -5,44 +5,40 @@ android:layout_height="match_parent"
 android:orientation="vertical">
 <RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="200dp">
+    android:layout_height="100dp">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:orientation="vertical"
-        android:background="@drawable/bg_view"
+        android:background="@color/blue"
         android:layout_alignParentTop="true">
-        >
+
         <ImageView
             android:id="@+id/back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:layout_marginStart="16dp"
             android:layout_marginTop="44dp"
-            android:background="@drawable/ic_arrownarrowleft" />
+            android:background="@drawable/ic_arrownarrowleft"
+            android:backgroundTint="@color/white"/>
     </LinearLayout>
-
-
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:text="Danh sách vé"
-        android:textAlignment="center"
+        android:gravity="center"
         android:textStyle="bold"
         android:textSize="30sp"
         android:textColor="@color/white"
-        android:paddingTop="70dp"
+
         />
 </RelativeLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@drawable/background"
         android:id="@+id/recyclerViewTickets"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:padding="20dp"/>
 
-<Button
-    android:id="@+id/btnAddUser"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Thêm Người Dùng" />
+
 </LinearLayout>

@@ -6,25 +6,26 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".MainFunction.NearStation2Activity">
+    android:background="@color/blue_light"
+    tools:context=".MainFunction.NearStation2Activity"
+    >
     <ImageView
         android:id="@+id/back"
         android:layout_width="30dp"
         android:layout_height="30dp"
-
         android:layout_marginStart="16dp"
         android:layout_marginTop="44dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrownarrowleft"/>
+        android:background="@drawable/ic_arrownarrowleft"
+        android:backgroundTint="@color/black"/>
 
     <TextView
         android:id="@+id/Tram"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="44dp"
         android:text="Trạm 1"
         android:textColor="@color/red_dam"
         android:textSize="20sp"
@@ -37,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="44dp"
         android:layout_weight="1"
         android:text="Bến Thành-Suối Tiên"
         android:textColor="@color/black"
@@ -59,9 +60,10 @@
             android:id="@+id/vitri"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+
             android:layout_weight="1"
             android:text="Vị trí"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"/>
         <TextView
@@ -71,6 +73,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="Điểm đến"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"/>
         <TextView
@@ -80,6 +83,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="1"
             android:text="Thời gian"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="18sp"/>
         <TextView
@@ -89,21 +93,26 @@
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
             android:text="Tình Trạng"
+
             android:textColor="@color/black"
             android:textSize="18sp"/>
     </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginTop="-10dp"
-        >
+        android:orientation="horizontal"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
         <ScrollView
+            android:id="@+id/list_nearroutes"
             android:layout_width="match_parent"
             android:layout_height="300dp"
-            android:layout_marginTop="-65dp"
-            android:id="@+id/list_nearroutes">
+            android:layout_marginTop="-65dp">
+
             <LinearLayout
                 android:id="@+id/list_aroundroutes"
                 android:layout_width="409dp"
@@ -111,18 +120,20 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/trang"
                 android:orientation="vertical"
-                tools:layout_editor_absoluteX="2dp"
-                tools:ignore="MissingConstraints">
+                tools:ignore="MissingConstraints"
+                tools:layout_editor_absoluteX="2dp">
+
                 <LinearLayout
                     android:id="@+id/linearLayout5"
                     android:layout_width="409dp"
                     android:layout_height="59dp"
-                    android:layout_marginTop="16dp"
+
                     android:background="@drawable/trang"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-                    tools:layout_editor_absoluteX="2dp"
-                    tools:ignore="MissingConstraints">
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="2dp">
+
                     <TextView
                         android:id="@+id/textView16"
                         android:layout_width="10dp"
@@ -131,7 +142,8 @@
                         android:layout_weight="1"
                         android:text="Trạm 1"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView17"
                         android:layout_width="53dp"
@@ -140,15 +152,18 @@
                         android:text="Trạm Thảo Điền"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
-                    <TextView android:id="@+id/textView18"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView18"
                         android:layout_width="43dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
                         android:text="20 phút"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView19"
                         android:layout_width="40dp"
@@ -156,21 +171,23 @@
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
                         android:background="@drawable/tram"
+                        android:gravity="center"
                         android:text="Di chuyển"
-                        android:textAlignment="center"
                         android:textColor="@color/green"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linearLayout4"
                     android:layout_width="408dp"
                     android:layout_height="62dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/trang"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                    tools:layout_editor_absoluteX="4dp"
-                    tools:ignore="MissingConstraints">
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="4dp">
+
                     <TextView
                         android:id="@+id/textView12"
                         android:layout_width="10dp"
@@ -179,7 +196,7 @@
                         android:layout_weight="1"
                         android:text="Trạm 1"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textView13"
@@ -190,6 +207,7 @@
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView14"
                         android:layout_width="43dp"
@@ -198,7 +216,7 @@
                         android:text="10 phút"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
 
                     <TextView
                         android:id="@+id/textView15"
@@ -207,20 +225,22 @@
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
                         android:background="@drawable/cam"
+                        android:gravity="center"
                         android:text=" Tạm Hoãn"
-                        android:textAlignment="center"
                         android:textColor="@color/orange"
                         android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linearLayout3"
                     android:layout_width="409dp"
                     android:layout_height="61dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/trang"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-                    tools:layout_editor_absoluteX="3dp"
-                    tools:ignore="MissingConstraints">
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="3dp">
 
                     <TextView
                         android:id="@+id/textView8"
@@ -231,6 +251,7 @@
                         android:text="Trạm 1"
                         android:textColor="@color/black"
                         android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView9"
                         android:layout_width="53dp"
@@ -239,7 +260,8 @@
                         android:text="Trạm Ba Son"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView10"
                         android:layout_width="43dp"
@@ -248,7 +270,8 @@
                         android:text="5 phút"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView11"
                         android:layout_width="40dp"
@@ -256,21 +279,23 @@
                         android:layout_marginEnd="20dp"
                         android:layout_weight="1"
                         android:background="@drawable/tram"
+                        android:gravity="center"
                         android:text="Di chuyển"
-                        android:textAlignment="center"
                         android:textColor="@color/green"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/linearLayout6"
                     android:layout_width="407dp"
                     android:layout_height="65dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/trang"
                     android:orientation="horizontal"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout5"
-                    tools:layout_editor_absoluteX="4dp"
-                    tools:ignore="MissingConstraints">
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="4dp">
+
                     <TextView
                         android:id="@+id/textView20"
                         android:layout_width="4dp"
@@ -279,7 +304,8 @@
                         android:layout_weight="1"
                         android:text="Trạm 1"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView21"
                         android:layout_width="47dp"
@@ -288,27 +314,29 @@
                         android:text="Trạm Suối Tiên"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView22"
-                        android:layout_width="35dp"
-                        android:layout_height="48dp"
+                        android:layout_width="43dp"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="25 phút"
+                        android:text="5 phút"
                         android:textAlignment="center"
                         android:textColor="@color/black"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
+
                     <TextView
                         android:id="@+id/textView23"
-                        android:layout_width="42dp"
+                        android:layout_width="40dp"
                         android:layout_height="41dp"
-                        android:layout_marginRight="5dp"
+                        android:layout_marginEnd="20dp"
                         android:layout_weight="1"
                         android:background="@drawable/tram"
-                        android:text="Di chuyến"
-                        android:textAlignment="center"
+                        android:gravity="center"
+                        android:text="Di chuyển"
                         android:textColor="@color/green"
-                        android:textSize="18sp"/>
+                        android:textSize="18sp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -317,8 +345,7 @@
 
     </LinearLayout>
 
-
-   <fragment
+    <fragment
         android:id="@+id/map"
         android:layout_width="396dp"
         android:layout_height="230dp"

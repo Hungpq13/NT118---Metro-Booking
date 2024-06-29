@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainFunction.NearStation1Activity"
-    android:background="#F5F5F5">
+    android:background="@drawable/background">
     <ImageView
         android:id="@+id/back"
         android:layout_width="30dp"
@@ -16,14 +16,15 @@
         android:layout_marginStart="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_arrownarrowleft"/>
-
+        android:background="@drawable/ic_arrownarrowleft"
+        android:backgroundTint="@color/black"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginVertical="40sp"
-        android:text="Chọn trạm"
+        android:layout_marginVertical="20sp"
+        android:text="Chọn Trạm"
+        android:textColor="@color/black"
         android:textAlignment="center"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -36,5 +37,6 @@
         android:divider="@drawable/divider_white"
         android:paddingTop="5dp"
         android:layout_marginBottom="50dp"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        />
 </LinearLayout>
