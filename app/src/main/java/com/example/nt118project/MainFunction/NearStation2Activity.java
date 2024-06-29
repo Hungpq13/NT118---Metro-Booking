@@ -1,12 +1,12 @@
 package com.example.nt118project.MainFunction;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,24 +19,30 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class NearStation2Activity extends AppCompatActivity implements OnMapReadyCallback {
-     ImageView back ;
-     private GoogleMap gMap;
-     String stationID;
-     String stationName;
-     TextView stationIDTextView, stationNameTextView;
-     String stationDocumentID;
+    ImageView back;
+    private GoogleMap gMap;
+    String stationID;
+    String stationName;
+    TextView stationIDTextView, stationNameTextView;
+    String stationDocumentID;
     private RecyclerView recyclerView;
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     private AroundRouteAdapter adapter;
     private List<Route> routeList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.near_station2);
 
         Intent intent = getIntent();
@@ -54,32 +60,51 @@ public class NearStation2Activity extends AppCompatActivity implements OnMapRead
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         routeList = new ArrayList<>();
-        routeList.add(new Route("Trạm 1", "Trạm Thảo Điền", "20 phút", "Di chuyển"));
-        routeList.add(new Route("Trạm 1", "Trạm Văn Thánh", "10 phút", "Tạm Hoãn"));
-        routeList.add(new Route("Trạm 1", "Trạm Ba Son", "5 phút", "Di chuyển"));
-        routeList.add(new Route("Trạm 1", "Trạm Suối Tiên", "25 phút", "Di chuyển"));
         adapter = new AroundRouteAdapter(routeList);
         recyclerView.setAdapter(adapter);
 
+        loadRoutes();
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(NearStation2Activity.this, NearStation1Activity.class);
-                startActivity(intent);
+                finish();
             }
         });
-            SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
-            mapFragment.getMapAsync(this);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+    }
+
+    private void loadRoutes() {
+        firebaseFirestore.collection("Destination").whereEqualTo("StationID", stationDocumentID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                        firebaseFirestore.collection("Station").whereEqualTo("StationName", documentSnapshot.getString("Destination")).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @SuppressLint("NotifyDataSetChanged")
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task2) {
+                                if (task2.isSuccessful()) {
+                                    for (DocumentSnapshot documentSnapshot1 : task2.getResult()) {
+                                        routeList.add(new Route("Trạm " + documentSnapshot1.getString("StationID"), documentSnapshot.getString("StationName"), documentSnapshot.getString("Time"), documentSnapshot1.getString("StationStatus")));
+                                    }
+                                    adapter.notifyDataSetChanged();
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         gMap = googleMap;
-        LatLng sydney = new LatLng(-34 , 151);
-        gMap.addMarker(new MarkerOptions().position(sydney).title("Hung"));
-        gMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng stationLocation = new LatLng(-34, 151); // Thay đổi vị trí này thành vị trí thực tế của trạm
+        gMap.addMarker(new MarkerOptions().position(stationLocation).title(stationName));
+        gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(stationLocation, 15));
     }
-
-
 }

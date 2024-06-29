@@ -1,6 +1,7 @@
 package com.example.nt118project.bottomnav;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +13,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nt118project.Auth.SharedPreferenceHelper;
 import com.example.nt118project.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +30,7 @@ public class NotificationFragment extends Fragment {
     private NotificationAdapter notificationAdapter;
     private List<Notification> notifications;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private SharedPreferenceHelper sharedPreferenceHelper;
 
     public NotificationFragment() {
         // Required empty public constructor
@@ -42,9 +43,10 @@ public class NotificationFragment extends Fragment {
 
         notificationsRecyclerView = view.findViewById(R.id.notifications_recyclerview);
         noNotificationsText = view.findViewById(R.id.no_notifications_text);
+        sharedPreferenceHelper = new SharedPreferenceHelper(requireContext());
 
-        // Initialize notification list
-        notifications = getNotifications();
+        // Initialize an empty list for notifications
+        notifications = new ArrayList<>();
 
         // Set up RecyclerView
         notificationAdapter = new NotificationAdapter(notifications);
@@ -54,26 +56,46 @@ public class NotificationFragment extends Fragment {
         // Show or hide the "no notifications" message
         updateNoNotificationsText();
 
-        return view;
-    }
+        // Listen for changes in the "Notifications" collection
+        CollectionReference documentsRef = firebaseFirestore.collection("Notifications");
 
-    private List<Notification> getNotifications() {
-        // This method should return the list of notifications
-        // For demonstration, we use a static list
-        List<Notification> notifications = new ArrayList<>();
-        notifications.add(new Notification(R.drawable.iconbell, "MetroVN xin chào", "Chào mừng bạn đã đến với app"));
-        firebaseFirestore.collection("Notifications").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if(task.isSuccessful()) {
-                    for(DocumentSnapshot document : task.getResult()) {
-                        notifications.add(new Notification(R.drawable.iconbell, document.getString("Title"), document.getString("Message")));
+        documentsRef.addSnapshotListener((snapshot, e) -> {
+            if (e != null) {
+                Log.w("TAG", "Listen failed.", e);
+                return;
+            }
+
+            if (snapshot != null) {
+                for (DocumentChange dc : snapshot.getDocumentChanges()) {
+                    switch (dc.getType()) {
+                        case ADDED:
+                            DocumentSnapshot addedDocument = dc.getDocument();
+                            if (addedDocument.getString("UserId").equals(sharedPreferenceHelper.getUserId())) {
+                                Notification newNotification = new Notification(
+                                        R.drawable.iconbell,
+                                        addedDocument.getString("Title"),
+                                        addedDocument.getString("Message")
+                                );
+                                notifications.add(newNotification);
+                                // Notify adapter on the main thread
+                                requireActivity().runOnUiThread(() -> {
+                                    notificationAdapter.notifyDataSetChanged();
+                                    updateNoNotificationsText();
+                                });
+                            }
+                            break;
+                        case MODIFIED:
+                            break;
+                        case REMOVED:
+                            break;
                     }
                 }
+            } else {
+                Log.d("TAG", "Current data: null");
             }
         });
 
-        return notifications;
+        return view;
     }
 
     private void updateNoNotificationsText() {

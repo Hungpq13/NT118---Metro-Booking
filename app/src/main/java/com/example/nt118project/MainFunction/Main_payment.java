@@ -1,6 +1,9 @@
 package com.example.nt118project.MainFunction;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,9 +23,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -38,15 +42,17 @@ public class Main_payment extends AppCompatActivity {
     private Spinner Loaive;
     private Spinner sThanhtoan;
     private TextView Giatien;
-    Button paymentBtn;
-    ImageView back;
-    SharedPreferenceHelper sharedPreferenceHelper;
-    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private Button paymentBtn;
+    private ImageView back;
+    private SharedPreferenceHelper sharedPreferenceHelper;
+    private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+
+    private static final String CHANNEL_ID = "your_channel_id"; // Thay đổi thành ID của channel bạn đã định nghĩa
+    private static int notificationId = 1; // Số nguyên duy nhất để định danh cho notification
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main_paymentt);
         sharedPreferenceHelper = new SharedPreferenceHelper(this);
 
@@ -58,6 +64,10 @@ public class Main_payment extends AppCompatActivity {
         emailEdt.setText(sharedPreferenceHelper.getUserEmail());
         nameEdt.setText(sharedPreferenceHelper.getUserName());
         phoneEdt.setText(sharedPreferenceHelper.getUserPhone());
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel();
+        }
 
         Loaive = findViewById(R.id.sLoaive);
         sThanhtoan = findViewById(R.id.sThanhtoan);
@@ -92,7 +102,7 @@ public class Main_payment extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) parent.getItemAtPosition(position);
-                if (selectedItem.equals("Vé đi")|| selectedItem.equals("Vé về") ) {
+                if (selectedItem.equals("Vé đi") || selectedItem.equals("Vé về")) {
                     Giatien.setText("20.000 VND");
                 } else if (selectedItem.equals("Vé 2 chiều")) {
                     Giatien.setText("40.000 VND");
@@ -115,7 +125,7 @@ public class Main_payment extends AppCompatActivity {
                 SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
                 String time = timeFormat.format(new Date());
 
-                if(ticketType.equals("Chọn loại vé")) {
+                if (ticketType.equals("Chọn loại vé")) {
                     Toast.makeText(Main_payment.this, "Vui lòng chọn loại vé", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -130,8 +140,12 @@ public class Main_payment extends AppCompatActivity {
                 firebaseFirestore.collection("Ticket").add(data).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentReference> task) {
-                        if(task.isSuccessful()) {
+                        if (task.isSuccessful()) {
                             Toast.makeText(Main_payment.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+
+                            // Tạo notification
+                            createAndShowNotification();
+
                             finish();
                         } else {
                             Toast.makeText(Main_payment.this, "Thanh toán thất bại", Toast.LENGTH_SHORT).show();
@@ -141,11 +155,34 @@ public class Main_payment extends AppCompatActivity {
             }
         });
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence channelName = "Your Channel Name";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, channelName, importance);
+
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+    }
+
+    private void createAndShowNotification() {
+        // Tạo notification
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.iconbell)
+                .setContentTitle("New Notification")
+                .setContentText("Bạn đã mua vé thành công")
+                .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+        // Hiển thị head-up notification
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(notificationId, builder.build());
     }
 }

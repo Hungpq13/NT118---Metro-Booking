@@ -36,6 +36,12 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,6 +54,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap mMap;
     private SearchView searchView;
     private SharedPreferenceHelper sharedPreferenceHelper;
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
     public HomeFragment() {
         // Required empty public constructor
@@ -62,7 +69,20 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         payment = view.findViewById(R.id.payment);
         metro = view.findViewById(R.id.metro);
         search = view.findViewById(R.id.search);
-        sharedPreferenceHelper = new SharedPreferenceHelper(getActivity().getApplicationContext());
+        sharedPreferenceHelper = new SharedPreferenceHelper(requireContext());
+
+        firebaseFirestore.collection("Users").whereEqualTo("UserId", sharedPreferenceHelper.getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (DocumentSnapshot document : task.getResult()) {
+                        String imageUrl = document.getString("ImageURL");
+                        ImageView avatarImageView = view.findViewById(R.id.avatarImageView);
+                        Picasso.get().load(imageUrl).into(avatarImageView);
+                    }
+                }
+            }
+        });
 
         searchView = view.findViewById(R.id.searchView);
 
@@ -124,9 +144,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
                 startActivity(intent);
             }
         });
-
-
-
 
 
         search.setOnClickListener(new View.OnClickListener() {
