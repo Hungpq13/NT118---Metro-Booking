@@ -12,27 +12,25 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import com.example.nt118project.R;
-import com.google.firebase.Firebase;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+
 public class Register extends AppCompatActivity {
-    EditText txtEmail,txtUsername,txtPassword,txtConPassword,phoneTxt;
+    EditText txtEmail, txtUsername, txtPassword, txtConPassword, phoneTxt;
     TextView loginRedirectText;
     Button btnSignUp;
-    FirebaseDatabase database;
-    DatabaseReference reference;
-    SharedPreferenceHelper sharedPreferenceHelper;
     Spinner spinnerGender;
     private EditText txtDob;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        sharedPreferenceHelper = new SharedPreferenceHelper(this);
 
         txtEmail = findViewById(R.id.txtEmail);
         txtUsername = findViewById(R.id.txtUsername);
@@ -48,23 +46,29 @@ public class Register extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                   String name = txtUsername.getText().toString();
-                   String email = txtEmail.getText().toString();
-                   String password = txtPassword.getText().toString();
-                   String DoB = txtDob.getText().toString();
-                   String Gender = spinnerGender.getSelectedItem().toString();
-                   String Phone = phoneTxt.getText().toString();
+                String name = txtUsername.getText().toString();
+                String email = txtEmail.getText().toString();
+                String password = txtPassword.getText().toString();
+                String DoB = txtDob.getText().toString();
+                String Gender = spinnerGender.getSelectedItem().toString();
+                String Phone = phoneTxt.getText().toString();
 
-                   DataUser DataUser = new DataUser(name, email, password);
+                // Kiểm tra tuổi người dùng có lớn hơn 2 tuổi không
+                if (isAgeValid(DoB)) {
+                    DataUser DataUser = new DataUser(name, email, password);
 
-                   Toast.makeText(Register.this, "Bạn đã đăng ký thành công !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register.this, "Bạn đã đăng ký thành công !", Toast.LENGTH_SHORT).show();
 
-                   Authentication.signUpWithEmailPassword(name, email, password, DoB, Gender, Phone);
+                    Authentication.signUpWithEmailPassword(name, email, password, DoB, Gender, Phone);
 
-                   Intent intent = new Intent(Register.this, Login.class);
-                   startActivity(intent);
-               }
+                    Intent intent = new Intent(Register.this, Login.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(Register.this, "Tuổi của người dùng phải lớn hơn 2 tuổi.", Toast.LENGTH_SHORT).show();
+                }
+            }
         });
+
         loginRedirectText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,6 +77,7 @@ public class Register extends AppCompatActivity {
             }
         });
     }
+
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -85,5 +90,32 @@ public class Register extends AppCompatActivity {
                 year, month, day);
 
         datePickerDialog.show();
+    }
+
+    // Phương thức kiểm tra tuổi của người dùng
+    private boolean isAgeValid(String dob) {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date birthDate = sdf.parse(dob);
+            Calendar dobCalendar = Calendar.getInstance();
+            dobCalendar.setTime(birthDate);
+
+            // Lấy ngày hiện tại
+            Calendar today = Calendar.getInstance();
+
+            // Tính tuổi
+            int age = today.get(Calendar.YEAR) - dobCalendar.get(Calendar.YEAR);
+            if (today.get(Calendar.MONTH) < dobCalendar.get(Calendar.MONTH) ||
+                    (today.get(Calendar.MONTH) == dobCalendar.get(Calendar.MONTH) &&
+                            today.get(Calendar.DAY_OF_MONTH) < dobCalendar.get(Calendar.DAY_OF_MONTH))) {
+                age--;
+            }
+
+            // Kiểm tra tuổi có lớn hơn 2 tuổi không
+            return age > 2;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }

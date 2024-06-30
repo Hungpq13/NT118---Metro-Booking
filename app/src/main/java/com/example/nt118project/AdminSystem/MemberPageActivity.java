@@ -1,6 +1,7 @@
 package com.example.nt118project.AdminSystem;
 
 import android.annotation.SuppressLint;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -29,9 +30,12 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class MemberPageActivity extends AppCompatActivity implements MemberAdapter.OnUserClickListener {
@@ -85,7 +89,7 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
                 if (task.isSuccessful()) {
                     userList.clear();
                     for (DocumentSnapshot document : task.getResult()) {
-                                userList.add(new Member(document.getId(), document.getString("Name"), document.getString("Email"), document.getString("DoB"), document.getString("Sex"), document.getString("Password")));
+                        userList.add(new Member(document.getId(), document.getString("Name"), document.getString("Email"), document.getString("DoB"), document.getString("Sex"), document.getString("Password")));
                     }
                     userAdapter.notifyDataSetChanged();
                 } else {
@@ -116,6 +120,15 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         EditText etUserPassword = view.findViewById(R.id.etUserPassword);
         EditText txtDoB = view.findViewById(R.id.txtDob);
         Spinner sexSpinner = view.findViewById(R.id.spinnerGender);
+
+
+        // Set onClickListener for calendar button
+        txtDoB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(txtDoB);
+            }
+        });
 
         builder.setView(view).setTitle("Thêm Người Dùng").setPositiveButton("Thêm", (dialog, which) -> {
             String name = etUserName.getText().toString().trim();
@@ -172,6 +185,7 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         EditText txtDoB = view.findViewById(R.id.txtDob);
         Spinner sexSpinner = view.findViewById(R.id.spinnerGender);
 
+
         Member user = userList.get(position);
         etUserName.setText(user.getName());
         etUserEmail.setText(user.getEmail());
@@ -184,6 +198,14 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
             int sexPosition = sex.equalsIgnoreCase("Nam") ? 0 : 1;
             sexSpinner.setSelection(sexPosition);
         }
+
+        // Set onClickListener for calendar button
+       txtDoB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog(txtDoB);
+            }
+        });
 
         builder.setView(view).setTitle("Sửa Người Dùng").setPositiveButton("Lưu", (dialog, which) -> {
             String name = etUserName.getText().toString().trim();
@@ -300,5 +322,16 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
                 });
             }
         });
+    }
+
+    private void showDatePickerDialog(final EditText txtDoB) {
+        Calendar newCalendar = Calendar.getInstance();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
+            Calendar selectedCalendar = Calendar.getInstance();
+            selectedCalendar.set(year, monthOfYear, dayOfMonth);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+            txtDoB.setText(sdf.format(selectedCalendar.getTime()));
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.show();
     }
 }
