@@ -22,20 +22,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="44dp"
+                android:layout_marginTop="65dp"
                 android:background="@drawable/ic_arrownarrowleft"
                 android:backgroundTint="@color/white"/>
         </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="150dp"
             android:text="Danh sách thành viên"
             android:textAlignment="center"
             android:textStyle="bold"
             android:textSize="30sp"
             android:textColor="@color/white"
-            android:paddingTop="35dp" />
+            android:gravity="center"/>
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
