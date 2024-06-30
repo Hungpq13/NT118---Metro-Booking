@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Tên người dùng"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textColorHint="#2B6BA3"
+        />
 
     <EditText
         android:id="@+id/etUserEmail"
@@ -20,18 +22,37 @@
         android:layout_height="wrap_content"
         android:hint="Email người dùng"
         android:inputType="textEmailAddress"
-        android:layout_marginBottom="10dp"/>
+        android:layout_marginBottom="10dp"
+        android:textColorHint="#2B6BA3"
+        />
+    <EditText
+        android:id="@+id/txtDob"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="Ngày sinh"
+        android:inputType="none"
+        android:focusable="false"
+        android:clickable="true"
+        android:paddingLeft="5dp"
+        android:textColorHint="#2B6BA3"/>
+
+    <!-- Gender field -->
+    <Spinner
+        android:id="@+id/spinnerGender"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="5dp"
+        android:entries="@array/gender_array"
+        android:textColorHint="#2B6BA3"
+        />
     <EditText
         android:id="@+id/etUserPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Mật khẩu người dùng"
-        android:inputType="text" />
-    <Button
-        android:id="@+id/btnAddUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Thêm Người Dùng"
-        android:layout_marginTop="80dp"
-        android:backgroundTint="@color/blue_middle"/>
+        android:inputType="text"
+        android:textColorHint="#2B6BA3"
+        />
+
 </LinearLayout>

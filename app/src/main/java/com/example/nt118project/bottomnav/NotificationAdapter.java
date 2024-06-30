@@ -1,14 +1,17 @@
 package com.example.nt118project.bottomnav;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.nt118project.Personal.BookedHistory;
 import com.example.nt118project.R;
 
 import java.util.List;
@@ -34,6 +37,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.notificationIcon.setImageResource(notification.getIconResId());
         holder.notificationTitle.setText(notification.getTitle());
         holder.notificationMessage.setText(notification.getMessage());
+        holder.rlContainer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BookedHistory.class);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -45,12 +55,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         ImageView notificationIcon;
         TextView notificationTitle;
         TextView notificationMessage;
+        RelativeLayout rlContainer;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             notificationIcon = itemView.findViewById(R.id.notification_icon);
             notificationTitle = itemView.findViewById(R.id.notification_title);
             notificationMessage = itemView.findViewById(R.id.notification_message);
+            rlContainer = itemView.findViewById(R.id.rl_container);
         }
     }
 }

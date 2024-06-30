@@ -12,16 +12,25 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.nt118project.AdminSystem.AdminActivity;
 import com.example.nt118project.bottomnav.MenuActivity;
 import com.example.nt118project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class Login extends AppCompatActivity {
     EditText inputNumberPhone, inputPassword;
     Button btnSignIn;
     TextView TextSignUp ;
     SharedPreferenceHelper sharedPreferences;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    String roleId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,9 +39,18 @@ public class Login extends AppCompatActivity {
         sharedPreferences = new SharedPreferenceHelper(getApplicationContext());
 
         if(sharedPreferences.getLogging()) {
-            Intent intent = new Intent(Login.this, MenuActivity.class);
-            startActivity(intent);
-            finish();
+//            String roleId = sharedPreferences.getRoleID();
+            String roleId = sharedPreferences.getRoleID();
+            if(roleId.equals("2")) {
+                Intent intent = new Intent(Login.this, MenuActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            else {
+                Intent intent = new Intent(Login.this, AdminActivity.class);
+                startActivity(intent);
+                finish();
+            }
         }
 
         inputNumberPhone = findViewById(R.id.inputNumberPhone);
@@ -57,13 +75,21 @@ public class Login extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     Boolean isSuccess = task.getResult();
                                     if (isSuccess != null && isSuccess) {
-                                        Log.v("Debug", "Đăng nhập thành công");
                                         Toast.makeText(Login.this, "Đăng nhập thành công", Toast.LENGTH_SHORT).show();
-
-                                        sharedPreferences.setLogging(true);
-                                        sharedPreferences.setRoleID(2);
-                                        Authorization.signInWithRole(2, getApplicationContext());
-
+                                        firebaseFirestore.collection("Users").whereEqualTo("UserId", mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                for (DocumentSnapshot document : task.getResult()) {
+                                                    sharedPreferences.setUserId(document.getString("UserId"));
+                                                    sharedPreferences.setUserName(document.getString("Name"));
+                                                    sharedPreferences.setUserEmail(document.getString("Email"));
+                                                    sharedPreferences.setUserPhone(document.getString("Phone"));
+                                                    sharedPreferences.setRoleID(document.getString("Role"));
+                                                    sharedPreferences.setLogging(true);
+                                                    Authorization.signInWithRole(document.getString("Role"), getApplicationContext());
+                                                }
+                                            }
+                                        });
                                         finish();
                                     } else {
                                         Log.v("Debug", "Đăng nhập thất bại");

@@ -155,7 +155,7 @@
             android:textAlignment="center"/>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_payment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/Giatien"
