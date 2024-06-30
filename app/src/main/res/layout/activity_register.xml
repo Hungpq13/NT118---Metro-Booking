@@ -98,7 +98,7 @@
         android:layout_width="260dp"
         android:layout_height="50dp"
         android:ems="10"
-        android:hint="Ngày sinh"
+        android:hint="Ngày sinh (dd/mm/yyyy)"
         android:inputType="none"
         android:focusable="false"
         android:clickable="true"

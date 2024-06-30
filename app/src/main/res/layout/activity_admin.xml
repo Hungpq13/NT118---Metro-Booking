@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Auth.Login">
+    tools:context=".Auth.Login"
+    android:background="@drawable/background">
 
     <View
         android:id="@+id/top_view"
@@ -148,7 +149,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_marginTop="60dp"
-                    android:src="@drawable/ticket"
+                    android:src="@drawable/iconticket"
                     android:layout_gravity="center_horizontal"
                     />
                 <TextView
