@@ -32,7 +32,7 @@
 
     <ListView
         android:id="@+id/listView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:dividerHeight="5dp"
         android:divider="@drawable/divider_white"
         android:paddingTop="5dp"

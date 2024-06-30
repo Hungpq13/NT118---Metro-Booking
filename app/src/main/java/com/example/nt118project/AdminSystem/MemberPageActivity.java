@@ -3,12 +3,12 @@ package com.example.nt118project.AdminSystem;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -17,9 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.nt118project.MainFunction.MapsActivity;
 import com.example.nt118project.R;
-import com.example.nt118project.bottomnav.MenuActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
@@ -27,7 +25,6 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -36,7 +33,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 public class MemberPageActivity extends AppCompatActivity implements MemberAdapter.OnUserClickListener {
 
@@ -89,7 +85,7 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
                 if (task.isSuccessful()) {
                     userList.clear();
                     for (DocumentSnapshot document : task.getResult()) {
-                        userList.add(new Member(document.getId(), document.getString("Name"), document.getString("Email"), document.getString("Password")));
+                                userList.add(new Member(document.getId(), document.getString("Name"), document.getString("Email"), document.getString("DoB"), document.getString("Sex"), document.getString("Password")));
                     }
                     userAdapter.notifyDataSetChanged();
                 } else {
@@ -101,11 +97,13 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
 
     @Override
     public void onUserClick(int position) {
+        // Khi người dùng click vào một item trong danh sách, hiển thị dialog sửa thông tin người dùng
         showEditUserDialog(position);
     }
 
     @Override
     public void onUserLongClick(int position) {
+        // Khi người dùng nhấn giữ vào một item trong danh sách, hiển thị dialog xác nhận xóa người dùng
         showDeleteUserDialog(position);
     }
 
@@ -116,13 +114,17 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         EditText etUserName = view.findViewById(R.id.etUserName);
         EditText etUserEmail = view.findViewById(R.id.etUserEmail);
         EditText etUserPassword = view.findViewById(R.id.etUserPassword);
+        EditText txtDoB = view.findViewById(R.id.txtDob);
+        Spinner sexSpinner = view.findViewById(R.id.spinnerGender);
 
         builder.setView(view).setTitle("Thêm Người Dùng").setPositiveButton("Thêm", (dialog, which) -> {
             String name = etUserName.getText().toString().trim();
             String email = etUserEmail.getText().toString().trim();
+            String DoB = txtDoB.getText().toString().trim();
+            String sex = sexSpinner.getSelectedItem().toString().trim();
             String password = etUserPassword.getText().toString().trim();
-            if (!name.isEmpty() && !email.isEmpty()) {
-                addUserToFirestore(name, email, password);
+            if (!name.isEmpty() && !email.isEmpty() && !DoB.isEmpty() && !sex.isEmpty() && !password.isEmpty()) {
+                addUserToFirestore(name, email, DoB, sex, password);
             } else {
                 Toast.makeText(MemberPageActivity.this, "Vui lòng nhập đủ thông tin.", Toast.LENGTH_SHORT).show();
             }
@@ -131,10 +133,12 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         builder.create().show();
     }
 
-    private void addUserToFirestore(String name, String email, String password) {
+    private void addUserToFirestore(String name, String email, String DoB, String sex, String password) {
         Map<String, Object> data = new HashMap<>();
         data.put("Name", name);
         data.put("Email", email);
+        data.put("DoB", DoB);
+        data.put("Sex", sex);
         data.put("Password", password);
         data.put("Role", "2");
 
@@ -146,7 +150,7 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
                 firebaseFirestore.collection("Users").add(data).addOnCompleteListener(task1 -> {
                     if (task1.isSuccessful()) {
                         Toast.makeText(MemberPageActivity.this, "Thêm người dùng thành công", Toast.LENGTH_SHORT).show();
-                        userList.add(new Member(userUid, name, email, password));
+                        userList.add(new Member(userUid, name, email, DoB, sex, password));
                         userAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(MemberPageActivity.this, "Lỗi khi thêm người dùng: " + task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -158,7 +162,6 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         });
     }
 
-
     private void showEditUserDialog(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         View view = LayoutInflater.from(this).inflate(R.layout.dialog_add_user, null);
@@ -166,18 +169,30 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         EditText etUserName = view.findViewById(R.id.etUserName);
         EditText etUserEmail = view.findViewById(R.id.etUserEmail);
         EditText etUserPassword = view.findViewById(R.id.etUserPassword);
+        EditText txtDoB = view.findViewById(R.id.txtDob);
+        Spinner sexSpinner = view.findViewById(R.id.spinnerGender);
 
         Member user = userList.get(position);
         etUserName.setText(user.getName());
         etUserEmail.setText(user.getEmail());
         etUserPassword.setText(user.getPassword());
+        txtDoB.setText(user.getDoB());
+
+        // Load gender from Firestore
+        String sex = user.getSex();
+        if (sex != null && !sex.isEmpty()) {
+            int sexPosition = sex.equalsIgnoreCase("Nam") ? 0 : 1;
+            sexSpinner.setSelection(sexPosition);
+        }
 
         builder.setView(view).setTitle("Sửa Người Dùng").setPositiveButton("Lưu", (dialog, which) -> {
             String name = etUserName.getText().toString().trim();
             String email = etUserEmail.getText().toString().trim();
+            String DoB = txtDoB.getText().toString().trim();
+            String selectedSex = sexSpinner.getSelectedItem().toString().trim();
             String password = etUserPassword.getText().toString().trim();
-            if (!name.isEmpty() && !email.isEmpty()) {
-                Member updatedUser = new Member(user.getId(), name, email, password);
+            if (!name.isEmpty() && !email.isEmpty() && !DoB.isEmpty() && !selectedSex.isEmpty() && !password.isEmpty()) {
+                Member updatedUser = new Member(user.getId(), name, email, DoB, selectedSex, password);
                 updateUserInFirestore(user.getPassword(), user.getEmail(), position, updatedUser);
             } else {
                 Toast.makeText(MemberPageActivity.this, "Vui lòng nhập đủ thông tin.", Toast.LENGTH_SHORT).show();
@@ -202,18 +217,22 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
                                 @Override
                                 public void onComplete(@NonNull Task<Void> passwordUpdateTask) {
                                     if (passwordUpdateTask.isSuccessful()) {
-
-                                        Map<String, String> data = new HashMap<>();
+                                        Map<String, Object> data = new HashMap<>();
                                         data.put("Name", updatedUser.getName());
                                         data.put("Email", email);
                                         data.put("Password", updatedUser.getPassword());
+                                        data.put("DoB", updatedUser.getDoB());
+                                        data.put("Sex", updatedUser.getSex());
+                                        data.put("Role", "2");
 
                                         firebaseFirestore.collection("Users").document(userList.get(position).getId()).set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override
                                             public void onComplete(@NonNull Task<Void> firestoreUpdateTask) {
                                                 if (firestoreUpdateTask.isSuccessful()) {
                                                     mAuth.signOut();
-                                                    Toast.makeText(MemberPageActivity.this, "Cập nhật người dùng thành công cho người dùng", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(MemberPageActivity.this, "Cập nhật người dùng thành công", Toast.LENGTH_SHORT).show();
+                                                    userList.set(position, updatedUser);
+                                                    userAdapter.notifyDataSetChanged();
                                                 } else {
                                                     Toast.makeText(MemberPageActivity.this, "Lỗi khi cập nhật người dùng trên Firestore", Toast.LENGTH_SHORT).show();
                                                 }
@@ -232,7 +251,6 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
             }
         });
     }
-
 
     private void showDeleteUserDialog(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

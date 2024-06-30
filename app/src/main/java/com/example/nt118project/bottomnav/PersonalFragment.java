@@ -37,9 +37,9 @@ public class PersonalFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_personal, container, false);
 
-        infor = view.findViewById(R.id.btn_info);
+        infor = view.findViewById(R.id.btn_userinfo);
         sharedPreferenceHelper = new SharedPreferenceHelper(getActivity().getApplicationContext());
-        btn_updatedata = view.findViewById(R.id.btn_updatedata);
+        btn_updatedata = view.findViewById(R.id.btn_ticket);
         Button btn_logout = view.findViewById(R.id.btn_logout);
 
         firebaseFirestore.collection("Users").whereEqualTo("UserId", sharedPreferenceHelper.getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

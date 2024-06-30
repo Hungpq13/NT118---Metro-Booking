@@ -1,14 +1,15 @@
 package com.example.nt118project.AdminSystem;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.nt118project.R;
-import com.example.nt118project.AdminSystem.Member;
-import com.google.firebase.firestore.auth.User;
 
 import java.util.List;
 
@@ -39,6 +40,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.UserViewHo
         Member member = userList.get(position);
         holder.tvUserName.setText(member.getName());
         holder.tvUserEmail.setText(member.getEmail());
+        holder.tvUserDoB.setText(member.getDoB());
+        holder.tvUserSex.setText(member.getSex());
         holder.tvUserPassword.setText(member.getPassword());
     }
 
@@ -66,14 +69,17 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.UserViewHo
 
         TextView tvUserName;
         TextView tvUserEmail;
-
-        TextView tvUserPassword ;
+        TextView tvUserDoB;
+        TextView tvUserSex;
+        TextView tvUserPassword;
         OnUserClickListener onUserClickListener;
 
         public UserViewHolder(@NonNull View itemView, OnUserClickListener onUserClickListener) {
             super(itemView);
             tvUserName = itemView.findViewById(R.id.tvUserName);
             tvUserEmail = itemView.findViewById(R.id.tvUserEmail);
+            tvUserDoB = itemView.findViewById(R.id.tvUserDoB);
+            tvUserSex = itemView.findViewById(R.id.tvUserSex);
             tvUserPassword = itemView.findViewById(R.id.tvUserPassword);
             this.onUserClickListener = onUserClickListener;
             itemView.setOnClickListener(this);
