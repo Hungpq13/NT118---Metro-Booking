@@ -24,6 +24,7 @@
             android:text="Tạm hoãn" />
     </RadioGroup>
     <EditText
+        android:id="@+id/tv_reason"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Lý do "

@@ -8,15 +8,12 @@ import com.example.nt118project.AdminSystem.AdminActivity;
 import com.example.nt118project.bottomnav.MenuActivity;
 
 public class Authorization {
-    static public void signInWithRole(Integer roleID, Context context) {
+    static public void signInWithRole(String roleID, Context context) {
         Intent intent;
-        switch (roleID) {
-            case 1:
-                intent = new Intent(context, AdminActivity.class);
-                break;
-            default:
-                intent = new Intent(context, MenuActivity.class);
-                break;
+        if (roleID.equals("1")) {
+            intent = new Intent(context, AdminActivity.class);
+        } else {
+            intent = new Intent(context, MenuActivity.class);
         }
         // Add FLAG_ACTIVITY_NEW_TASK flag
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
