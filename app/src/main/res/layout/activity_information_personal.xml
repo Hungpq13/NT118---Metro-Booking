@@ -24,6 +24,7 @@
             android:textColor="@color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
+
     </LinearLayout>
 
     <LinearLayout
@@ -55,7 +56,6 @@
                 android:drawableEnd="@drawable/iconcamera"
                 android:onClick="onChangeAvatarClicked" />
         </androidx.cardview.widget.CardView>
-
         <TextView
             android:id="@+id/personal_name"
             android:layout_width="wrap_content"
@@ -69,20 +69,22 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             app:cardBackgroundColor="@color/white"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp"
+            android:layout_marginTop="40dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:background="@color/blue_light">
 
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
-                    android:text="Họ"
-                    android:textColor="#9D9999"
+                    android:text="Họ tên"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
 
                 <EditText
@@ -110,7 +112,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -123,7 +125,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/blue_light">
 
                     <TextView
                         android:layout_width="100dp"
@@ -131,8 +134,9 @@
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="10dp"
                         android:text="Giới tính"
-                        android:textColor="#9D9999"
-                        android:textSize="10sp" />
+                        android:textColor="@color/black"
+                        android:textSize="10sp"
+                        />
 
                     <Spinner
                         android:id="@+id/genderSpinner"
@@ -174,7 +178,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -187,7 +191,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/blue_light">
 
                     <TextView
                         android:layout_width="100dp"
@@ -195,7 +200,7 @@
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="10dp"
                         android:text="Ngày sinh"
-                        android:textColor="#9D9999"
+                        android:textColor="@color/black"
                         android:textSize="10sp" />
 
                     <EditText
@@ -225,7 +230,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -238,20 +243,21 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/blue_light">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="10dp"
                         android:text="Số điện thoại"
-                        android:textColor="#9D9999"
+                        android:textColor="@color/black"
                         android:textSize="10sp" />
 
                     <EditText
                         android:id="@+id/phoneEdt"
-                        android:layout_width="243dp"
+                        android:layout_width="235dp"
                         android:layout_height="match_parent"
                         android:background="@null"
                         android:enabled="false"
@@ -266,9 +272,8 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:src="@drawable/icontick" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
@@ -277,7 +282,7 @@
             android:id="@+id/email"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
@@ -290,7 +295,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="@color/blue_light">
 
                     <TextView
                         android:layout_width="65dp"
@@ -298,7 +304,7 @@
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="10dp"
                         android:text="Email"
-                        android:textColor="#9D9999"
+                        android:textColor="@color/black"
                         android:textSize="10sp" />
 
                     <EditText
@@ -317,7 +323,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:clickable="true"
+                        android:clickable="false"
                         android:src="@drawable/icontick" />
 
                 </LinearLayout>
@@ -337,7 +343,7 @@
             android:id="@+id/btnSave"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
+            android:backgroundTint="@color/blue_middle"
             android:text="Lưu"
             android:textColor="@android:color/white" />
     </LinearLayout>
