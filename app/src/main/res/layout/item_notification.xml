@@ -3,7 +3,7 @@
     android:id="@+id/rl_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
+    android:background="@color/blue_sky"
     android:clickable="true"
     android:padding="16dp">
 

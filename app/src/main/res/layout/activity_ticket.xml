@@ -60,7 +60,6 @@ android:orientation="vertical">
             android:textColor="@color/white" />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
-        android:background="@drawable/background"
         android:id="@+id/recyclerViewTickets"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
