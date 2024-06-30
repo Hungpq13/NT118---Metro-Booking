@@ -50,11 +50,13 @@
             <Button
                 android:id="@+id/btnPickImage"
                 android:layout_width="match_parent"
-                android:layout_height="24dp"
+                android:layout_height="25dp"
                 android:layout_gravity="bottom"
                 android:backgroundTint="#66CDD0DF"
-                android:drawableEnd="@drawable/iconcamera"
-                android:onClick="onChangeAvatarClicked" />
+                android:drawableBottom="@drawable/iconcamera"
+                android:padding="2dp"
+                android:onClick="onChangeAvatarClicked"
+                />
         </androidx.cardview.widget.CardView>
         <TextView
             android:id="@+id/personal_name"

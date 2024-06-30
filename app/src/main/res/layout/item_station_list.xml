@@ -3,7 +3,7 @@
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
     android:paddingVertical="10dp"
-    android:background="@color/blue_light"
+    android:background="@color/blue_sky"
     xmlns:android="http://schemas.android.com/apk/res/android">
         <TextView
             android:id="@+id/trainLogo"
