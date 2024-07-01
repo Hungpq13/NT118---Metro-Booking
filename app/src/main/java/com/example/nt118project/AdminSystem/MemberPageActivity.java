@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -21,9 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.nt118project.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -37,6 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.UUID;
 
 public class MemberPageActivity extends AppCompatActivity implements MemberAdapter.OnUserClickListener {
 
@@ -62,7 +61,6 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         userAdapter = new MemberAdapter(userList, this);
         recyclerViewUsers.setAdapter(userAdapter);
 
-        // Lấy danh sách người dùng từ Firestore
         fetchUsersFromFirestore();
 
         btnAddUser = findViewById(R.id.btnAddUser);
@@ -89,7 +87,15 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
                 if (task.isSuccessful()) {
                     userList.clear();
                     for (DocumentSnapshot document : task.getResult()) {
-                        userList.add(new Member(document.getId(), document.getString("Name"), document.getString("Email"), document.getString("DoB"), document.getString("Sex"), document.getString("Password")));
+                        userList.add(new Member(
+                                document.getId(),
+                                document.getString("Name"),
+                                document.getString("Email"),
+                                document.getString("Phone"),
+                                document.getString("DoB"),
+                                document.getString("Sex"),
+                                document.getString("Password")
+                        ));
                     }
                     userAdapter.notifyDataSetChanged();
                 } else {
@@ -101,13 +107,11 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
 
     @Override
     public void onUserClick(int position) {
-        // Khi người dùng click vào một item trong danh sách, hiển thị dialog sửa thông tin người dùng
         showEditUserDialog(position);
     }
 
     @Override
     public void onUserLongClick(int position) {
-        // Khi người dùng nhấn giữ vào một item trong danh sách, hiển thị dialog xác nhận xóa người dùng
         showDeleteUserDialog(position);
     }
 
@@ -120,9 +124,8 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         EditText etUserPassword = view.findViewById(R.id.etUserPassword);
         EditText txtDoB = view.findViewById(R.id.txtDob);
         Spinner sexSpinner = view.findViewById(R.id.spinnerGender);
+        EditText etUserPhone = view.findViewById(R.id.etUserPhone);
 
-
-        // Set onClickListener for calendar button
         txtDoB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,13 +134,15 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         });
 
         builder.setView(view).setTitle("Thêm Người Dùng").setPositiveButton("Thêm", (dialog, which) -> {
+            String id = UUID.randomUUID().toString();
             String name = etUserName.getText().toString().trim();
             String email = etUserEmail.getText().toString().trim();
             String DoB = txtDoB.getText().toString().trim();
             String sex = sexSpinner.getSelectedItem().toString().trim();
             String password = etUserPassword.getText().toString().trim();
-            if (!name.isEmpty() && !email.isEmpty() && !DoB.isEmpty() && !sex.isEmpty() && !password.isEmpty()) {
-                addUserToFirestore(name, email, DoB, sex, password);
+            String phone = etUserPhone.getText().toString().trim();
+            if (!name.isEmpty() && !email.isEmpty() && !DoB.isEmpty() && !sex.isEmpty() && !password.isEmpty() && !phone.isEmpty()) {
+                addUserToFirestore(id , name, email, phone, DoB, sex, password);
             } else {
                 Toast.makeText(MemberPageActivity.this, "Vui lòng nhập đủ thông tin.", Toast.LENGTH_SHORT).show();
             }
@@ -146,10 +151,12 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         builder.create().show();
     }
 
-    private void addUserToFirestore(String name, String email, String DoB, String sex, String password) {
+    private void addUserToFirestore(String userid , String name, String email, String phone, String DoB, String sex, String password) {
         Map<String, Object> data = new HashMap<>();
+
         data.put("Name", name);
         data.put("Email", email);
+        data.put("Phone", phone);
         data.put("DoB", DoB);
         data.put("Sex", sex);
         data.put("Password", password);
@@ -158,12 +165,12 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 String userUid = task.getResult().getUser().getUid();
-                data.put("UserUid", userUid);
+                data.put("UserId", userUid);
 
                 firebaseFirestore.collection("Users").add(data).addOnCompleteListener(task1 -> {
                     if (task1.isSuccessful()) {
                         Toast.makeText(MemberPageActivity.this, "Thêm người dùng thành công", Toast.LENGTH_SHORT).show();
-                        userList.add(new Member(userUid, name, email, DoB, sex, password));
+                        userList.add(new Member(userUid, name, email, phone, DoB, sex, password));
                         userAdapter.notifyDataSetChanged();
                     } else {
                         Toast.makeText(MemberPageActivity.this, "Lỗi khi thêm người dùng: " + task1.getException().getMessage(), Toast.LENGTH_SHORT).show();
@@ -184,23 +191,27 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         EditText etUserPassword = view.findViewById(R.id.etUserPassword);
         EditText txtDoB = view.findViewById(R.id.txtDob);
         Spinner sexSpinner = view.findViewById(R.id.spinnerGender);
-
+        EditText etUserPhone = view.findViewById(R.id.etUserPhone);
+        TextView etUserId = view.findViewById(R.id.etUserId); // ID field
 
         Member user = userList.get(position);
         etUserName.setText(user.getName());
         etUserEmail.setText(user.getEmail());
         etUserPassword.setText(user.getPassword());
         txtDoB.setText(user.getDoB());
+        etUserPhone.setText(user.getPhone());
+        etUserId.setText(user.getId()); // Set the ID field as non-editable
 
-        // Load gender from Firestore
+        // Set ID field to be non-editable
+        etUserId.setEnabled(false);
+
         String sex = user.getSex();
         if (sex != null && !sex.isEmpty()) {
             int sexPosition = sex.equalsIgnoreCase("Nam") ? 0 : 1;
             sexSpinner.setSelection(sexPosition);
         }
 
-        // Set onClickListener for calendar button
-       txtDoB.setOnClickListener(new View.OnClickListener() {
+        txtDoB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePickerDialog(txtDoB);
@@ -213,9 +224,9 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
             String DoB = txtDoB.getText().toString().trim();
             String selectedSex = sexSpinner.getSelectedItem().toString().trim();
             String password = etUserPassword.getText().toString().trim();
-            if (!name.isEmpty() && !email.isEmpty() && !DoB.isEmpty() && !selectedSex.isEmpty() && !password.isEmpty()) {
-                Member updatedUser = new Member(user.getId(), name, email, DoB, selectedSex, password);
-                updateUserInFirestore(user.getPassword(), user.getEmail(), position, updatedUser);
+            String phone = etUserPhone.getText().toString().trim();
+            if (!name.isEmpty() && !email.isEmpty() && !DoB.isEmpty() && !selectedSex.isEmpty() && !password.isEmpty() && !phone.isEmpty()) {
+                updateUserInFirestore(user.getId(), name, email, phone, DoB, selectedSex, password);
             } else {
                 Toast.makeText(MemberPageActivity.this, "Vui lòng nhập đủ thông tin.", Toast.LENGTH_SHORT).show();
             }
@@ -224,114 +235,65 @@ public class MemberPageActivity extends AppCompatActivity implements MemberAdapt
         builder.create().show();
     }
 
-    private void updateUserInFirestore(String oldPassword, String email, int position, Member updatedUser) {
-        mAuth.signInWithEmailAndPassword(email, oldPassword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                AuthCredential credential = EmailAuthProvider.getCredential(email, oldPassword);
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> reauthTask) {
-                        if (reauthTask.isSuccessful()) {
-                            // Update password
-                            user.updatePassword(updatedUser.getPassword()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> passwordUpdateTask) {
-                                    if (passwordUpdateTask.isSuccessful()) {
-                                        Map<String, Object> data = new HashMap<>();
-                                        data.put("Name", updatedUser.getName());
-                                        data.put("Email", email);
-                                        data.put("Password", updatedUser.getPassword());
-                                        data.put("DoB", updatedUser.getDoB());
-                                        data.put("Sex", updatedUser.getSex());
-                                        data.put("Role", "2");
+    private void updateUserInFirestore(String userId, String name, String email, String phone, String DoB, String sex, String password) {
+        Map<String, Object> data = new HashMap<>();
+        data.put("UserId", userId);
+        data.put("Name", name);
+        data.put("Email", email);
+        data.put("Phone", phone);
+        data.put("DoB", DoB);
+        data.put("Sex", sex);
+        data.put("Password", password);
 
-                                        firebaseFirestore.collection("Users").document(userList.get(position).getId()).set(data).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> firestoreUpdateTask) {
-                                                if (firestoreUpdateTask.isSuccessful()) {
-                                                    mAuth.signOut();
-                                                    Toast.makeText(MemberPageActivity.this, "Cập nhật người dùng thành công", Toast.LENGTH_SHORT).show();
-                                                    userList.set(position, updatedUser);
-                                                    userAdapter.notifyDataSetChanged();
-                                                } else {
-                                                    Toast.makeText(MemberPageActivity.this, "Lỗi khi cập nhật người dùng trên Firestore", Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
-                                    } else {
-                                        Toast.makeText(MemberPageActivity.this, "Lỗi khi cập nhật mật khẩu", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(MemberPageActivity.this, "Sửa mật khẩu không thành công.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+        firebaseFirestore.collection("Users").document(userId).update(data).addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(MemberPageActivity.this, "Cập nhật thông tin người dùng thành công", Toast.LENGTH_SHORT).show();
+                fetchUsersFromFirestore();
+            } else {
+                Toast.makeText(MemberPageActivity.this, "Lỗi khi cập nhật thông tin người dùng: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void showDeleteUserDialog(int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Xóa Người Dùng").setMessage("Bạn có chắc chắn muốn xóa người dùng này?").setPositiveButton("Xóa", (dialog, which) -> {
-            deleteUserFromFirestore(position);
-        }).setNegativeButton("Hủy", null);
-
-        builder.create().show();
+        builder.setTitle("Xóa Người Dùng").setMessage("Bạn có chắc chắn muốn xóa người dùng này không?")
+                .setPositiveButton("Xóa", (dialog, which) -> deleteUserFromFirestore(userList.get(position).getId()))
+                .setNegativeButton("Hủy", null).create().show();
     }
 
-    private void deleteUserFromFirestore(int position) {
-        mAuth.signInWithEmailAndPassword(userList.get(position).getEmail(), userList.get(position).getPassword()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                FirebaseUser user = mAuth.getCurrentUser();
-                AuthCredential credential = EmailAuthProvider.getCredential(userList.get(position).getEmail(), userList.get(position).getPassword());
-                user.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> reauthTask) {
-                        if (reauthTask.isSuccessful()) {
-                            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> passwordUpdateTask) {
-                                    if (passwordUpdateTask.isSuccessful()) {
-                                        firebaseFirestore.collection("Users").document(userList.get(position).getId()).delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                            @SuppressLint("NotifyDataSetChanged")
-                                            @Override
-                                            public void onComplete(@NonNull Task<Void> task) {
-                                                if (task.isSuccessful()) {
-                                                    Toast.makeText(MemberPageActivity.this, "Xóa người dùng thành công", Toast.LENGTH_SHORT).show();
-                                                    userList.remove(position);
-                                                    userAdapter.notifyDataSetChanged();
-                                                } else {
-                                                    Toast.makeText(MemberPageActivity.this, "Lỗi khi xóa người dùng", Toast.LENGTH_SHORT).show();
-                                                }
-                                            }
-                                        });
-                                    } else {
-                                        Toast.makeText(MemberPageActivity.this, "Lỗi khi xoá người dùng", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(MemberPageActivity.this, "Xoá người dùng không thành công.", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
+    private void deleteUserFromFirestore(String userId) {
+        firebaseFirestore.collection("Users").document(userId).delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(MemberPageActivity.this, "Xóa người dùng thành công", Toast.LENGTH_SHORT).show();
+                fetchUsersFromFirestore();
+            } else {
+                Toast.makeText(MemberPageActivity.this, "Lỗi khi xóa người dùng: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    private void showDatePickerDialog(final EditText txtDoB) {
-        Calendar newCalendar = Calendar.getInstance();
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, (view, year, monthOfYear, dayOfMonth) -> {
-            Calendar selectedCalendar = Calendar.getInstance();
-            selectedCalendar.set(year, monthOfYear, dayOfMonth);
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            txtDoB.setText(sdf.format(selectedCalendar.getTime()));
-        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+    private void showDatePickerDialog(EditText txtDoB) {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        // Calculate the minimum date (2 years before the current date)
+        final Calendar minCalendar = Calendar.getInstance();
+        minCalendar.set(Calendar.YEAR, year - 2);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(MemberPageActivity.this,
+                (view, year1, monthOfYear, dayOfMonth) -> {
+                    calendar.set(year1, monthOfYear, dayOfMonth);
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    txtDoB.setText(sdf.format(calendar.getTime()));
+                }, year, month, day);
+
+        // Set the minimum date
+        datePickerDialog.getDatePicker().setMaxDate(minCalendar.getTimeInMillis());
+
         datePickerDialog.show();
     }
+
 }

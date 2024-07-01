@@ -217,7 +217,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap.addMarker(new MarkerOptions().position(gst).title("Trạm 14 - Ga Suối Tiên ").icon(BitmapDescriptorFactory.fromResource(R.drawable.markericon)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(gst));
         LatLng defaultLocation = new LatLng(10.8700, 106.8032);
-        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("you").icon(BitmapDescriptorFactory.fromResource(R.drawable.markeruser)));
+        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Bạn"));
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15));
     }
 

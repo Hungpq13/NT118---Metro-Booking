@@ -3,7 +3,6 @@ package com.example.nt118project.AdminSystem;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -43,6 +42,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.UserViewHo
         holder.tvUserDoB.setText(member.getDoB());
         holder.tvUserSex.setText(member.getSex());
         holder.tvUserPassword.setText(member.getPassword());
+        holder.tvUserPhone.setText(member.getPhone());
+        holder.tvUserId.setText(member.getId());
     }
 
     @Override
@@ -72,6 +73,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.UserViewHo
         TextView tvUserDoB;
         TextView tvUserSex;
         TextView tvUserPassword;
+        TextView tvUserPhone;
+        TextView tvUserId;
         OnUserClickListener onUserClickListener;
 
         public UserViewHolder(@NonNull View itemView, OnUserClickListener onUserClickListener) {
@@ -81,6 +84,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.UserViewHo
             tvUserDoB = itemView.findViewById(R.id.tvUserDoB);
             tvUserSex = itemView.findViewById(R.id.tvUserSex);
             tvUserPassword = itemView.findViewById(R.id.tvUserPassword);
+            tvUserPhone = itemView.findViewById(R.id.tvUserPhone);
+            tvUserId = itemView.findViewById(R.id.tvUserId);
             this.onUserClickListener = onUserClickListener;
             itemView.setOnClickListener(this);
             itemView.setOnLongClickListener(this);

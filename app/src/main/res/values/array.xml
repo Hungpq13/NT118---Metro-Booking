@@ -4,4 +4,11 @@
         <item>Nam</item>
         <item>Nữ</item>
     </string-array>
+    <string-array name="thanhtoan">
+        <item>Nam </item>
+        <item>Nữ</item>
+    </string-array>
 </resources>
+
+
+

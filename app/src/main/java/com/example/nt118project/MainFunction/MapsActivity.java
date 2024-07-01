@@ -109,7 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                             if (lastKnownLocation != null) {
                                 LatLng currentLocation = new LatLng(lastKnownLocation.getLatitude(),
                                         lastKnownLocation.getLongitude());
-                                mMap.addMarker(new MarkerOptions().position(currentLocation).title("Bạn").icon(BitmapDescriptorFactory.fromResource(R.drawable.markeruser)));
+                                mMap.addMarker(new MarkerOptions().position(currentLocation).title("Bạn"));
                                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15));
                             }
                         } else {

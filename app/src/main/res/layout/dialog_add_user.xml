@@ -5,9 +5,18 @@
     android:orientation="vertical"
     android:padding="20dp"
     android:background="@drawable/background">
-
-    <EditText
+    <TextView
         android:layout_marginTop="200dp"
+        android:id="@+id/etUserId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:hint="ID người dùng"
+        android:inputType="text"
+        android:textSize="20sp"
+        android:textColorHint="#2B6BA3" />
+    <EditText
+
         android:id="@+id/etUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,6 +35,16 @@
         android:textColorHint="#2B6BA3"
         />
     <EditText
+        android:id="@+id/etUserPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Số điện thoại"
+        android:inputType="phone"
+        android:layout_marginBottom="10dp"
+        android:textColorHint="#2B6BA3"
+        />
+
+    <EditText
         android:id="@+id/txtDob"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -37,7 +56,6 @@
         android:paddingLeft="5dp"
         android:textColorHint="#2B6BA3"/>
 
-    <!-- Gender field -->
     <Spinner
         android:id="@+id/spinnerGender"
         android:layout_width="match_parent"

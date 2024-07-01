@@ -39,6 +39,14 @@
             android:textSize="14sp"
             android:textColor="@color/grey" />
         <TextView
+            android:id="@+id/tvUserPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="123-456-7890"
+            android:textSize="14sp"
+            android:textColor="@color/grey" />
+
+        <TextView
             android:id="@+id/tvUserDoB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,6 +62,16 @@
             android:textSize="14sp"
             android:textColor="@color/grey" />
 
+
+
+        <TextView
+            android:id="@+id/tvUserId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ID12345"
+            android:textSize="14sp"
+            android:textColor="@color/grey" />
+
         <TextView
             android:id="@+id/tvUserPassword"
             android:layout_width="wrap_content"
@@ -62,7 +80,6 @@
             android:inputType="textPassword"
             android:textSize="14sp"
             android:textColor="@color/grey" />
-
 
     </LinearLayout>
 
