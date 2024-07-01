@@ -1,5 +1,6 @@
 package com.example.nt118project.MainFunction;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nt118project.R;
@@ -15,9 +17,10 @@ import java.util.List;
 
 public class AroundRouteAdapter extends RecyclerView.Adapter<AroundRouteAdapter.ViewHolder> {
     private List<Route> routeList;
-
-    public AroundRouteAdapter(List<Route> routeList) {
+    private Context context;
+    public AroundRouteAdapter(List<Route> routeList , Context context) {
         this.routeList = routeList;
+        this.context = context;
     }
 
     @NonNull
@@ -42,7 +45,7 @@ public class AroundRouteAdapter extends RecyclerView.Adapter<AroundRouteAdapter.
             holder.stationNameDestination.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.red_dam));
         }
 
-        // Set status background and text color based on route status
+        // Set màu cho status
         if (route.getStationStatus().equals("Di chuyển")) {
             holder.stationStatus.setBackgroundResource(R.drawable.tram); // Set your custom drawable
             holder.stationStatus.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.green)); // Set your custom color
@@ -53,8 +56,22 @@ public class AroundRouteAdapter extends RecyclerView.Adapter<AroundRouteAdapter.
             holder.stationStatus.setBackgroundResource(android.R.color.transparent);
             holder.stationStatus.setTextColor(holder.itemView.getContext().getResources().getColor(R.color.black));
         }
+        holder.stationStatus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (route.getStationStatus().equals("Tạm hoãn")) {
+                    showDelayReasonDialog(route.getDelayReason());
+                }
+            }
+        });
     }
-
+    private void showDelayReasonDialog(String delayReason) {
+        new AlertDialog.Builder(context)
+                .setTitle("Lý do tạm hoãn")
+                .setMessage(delayReason)
+                .setPositiveButton(android.R.string.ok, null)
+                .show();
+    }
 
     @Override
     public int getItemCount() {

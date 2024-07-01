@@ -63,7 +63,7 @@ public class NearStation2Activity extends AppCompatActivity implements OnMapRead
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         routeList = new ArrayList<>();
-        adapter = new AroundRouteAdapter(routeList);
+        adapter = new AroundRouteAdapter(routeList , this);
         recyclerView.setAdapter(adapter);
 
         loadRoutes();
@@ -93,6 +93,7 @@ public class NearStation2Activity extends AppCompatActivity implements OnMapRead
                         int destinationID = Integer.parseInt(documentSnapshot.getString("StationID"));
                         String stationStatus = documentSnapshot.getString("StationStatus");
                         String stationNameDestination = documentSnapshot.getString("StationName");
+                        String delayReason = documentSnapshot.getString("Reason"); // Retrieve delay reason from Firestore
                         String time = String.valueOf(Math.abs(destinationID - stationIDInt) * 5) + " phút";
                         boolean isGreenText = destinationID < stationIDInt;
                         Route route = new Route(
@@ -100,7 +101,8 @@ public class NearStation2Activity extends AppCompatActivity implements OnMapRead
                                 stationNameDestination,
                                 time,
                                 stationStatus,
-                                isGreenText
+                                isGreenText,
+                                delayReason
                         );
 
                         routeList.add(route);
@@ -117,7 +119,6 @@ public class NearStation2Activity extends AppCompatActivity implements OnMapRead
                     Collections.sort(routeList, new Comparator<Route>() {
                         @Override
                         public int compare(Route route1, Route route2) {
-                            // Parse time to integer for comparison
                             int time1 = parseTime(route1.getTime());
                             int time2 = parseTime(route2.getTime());
                             return Integer.compare(time1, time2);

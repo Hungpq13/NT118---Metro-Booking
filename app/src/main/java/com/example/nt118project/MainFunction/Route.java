@@ -5,14 +5,16 @@ public class Route {
     private String StationNameDestination;
     private String time;
     private String StationStatus;
-    private boolean istrue ;
+    private boolean istrue;
+    private String delayReason;
 
-    public Route(String StationNameStarting, String StationNameDestination, String time, String StationStatus , boolean istrue) {
+    public Route(String StationNameStarting, String StationNameDestination, String time, String StationStatus, boolean istrue, String delayReason) {
         this.StationNameStarting = StationNameStarting;
         this.StationNameDestination = StationNameDestination;
         this.time = time;
         this.StationStatus = StationStatus;
-        this.istrue = istrue ;
+        this.istrue = istrue;
+        this.delayReason = delayReason;
     }
 
     public String getStationNameStarting() {
@@ -30,7 +32,13 @@ public class Route {
     public String getStationStatus() {
         return StationStatus;
     }
+
     public boolean Istrue() {
         return istrue;
+    }
+
+    // Add getter for delayReason
+    public String getDelayReason() {
+        return delayReason;
     }
 }
