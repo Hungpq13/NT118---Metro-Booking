@@ -18,7 +18,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:backgroundTint="@color/black"
-        app:srcCompat="@drawable/ic_arrownarrowleft"/>
+        android:background="@drawable/ic_arrownarrowleft"/>
 
     <TextView
         android:id="@+id/Tram"
