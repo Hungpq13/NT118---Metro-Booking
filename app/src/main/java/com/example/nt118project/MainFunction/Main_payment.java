@@ -1,10 +1,14 @@
 package com.example.nt118project.MainFunction;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -15,21 +19,24 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+
 import com.example.nt118project.Auth.SharedPreferenceHelper;
 import com.example.nt118project.R;
 import com.example.nt118project.bottomnav.MenuActivity;
+import com.example.nt118project.Personal.BookedHistory;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -47,8 +54,8 @@ public class Main_payment extends AppCompatActivity {
     private SharedPreferenceHelper sharedPreferenceHelper;
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
 
-    private static final String CHANNEL_ID = "your_channel_id"; // Thay đổi thành ID của channel bạn đã định nghĩa
-    private static int notificationId = 1; // Số nguyên duy nhất để định danh cho notification
+    private static final String CHANNEL_ID = "your_channel_id";
+    private static int notificationId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,23 +87,23 @@ public class Main_payment extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         ArrayList<String> arrayLoaiVe = new ArrayList<>();
         arrayLoaiVe.add("Chọn loại vé");
         arrayLoaiVe.add("Vé đi");
         arrayLoaiVe.add("Vé về");
         arrayLoaiVe.add("Vé 2 chiều");
 
-        ArrayList<String> arraysThanhtoan = new ArrayList<>();
-        arraysThanhtoan.add("Thanh toán momo");
-        arraysThanhtoan.add("Thanh toán ngân hàng");
+        ArrayList<PaymentMethod> paymentMethods = new ArrayList<>();
+        paymentMethods.add(new PaymentMethod("Thanh toán momo", R.drawable.momo)); // replace with actual icon
+        paymentMethods.add(new PaymentMethod("Thanh toán ngân hàng", R.drawable.iconwallet)); // replace with actual icon
 
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arrayLoaiVe);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         Loaive.setAdapter(arrayAdapter);
 
-        ArrayAdapter<String> arrayAdapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, arraysThanhtoan);
-        arrayAdapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sThanhtoan.setAdapter(arrayAdapter1);
+        CustomSpinnerAdapter paymentAdapter = new CustomSpinnerAdapter(this, paymentMethods);
+        sThanhtoan.setAdapter(paymentAdapter);
 
         Loaive.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -142,9 +149,16 @@ public class Main_payment extends AppCompatActivity {
                     public void onComplete(@NonNull Task<DocumentReference> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(Main_payment.this, "Thanh toán thành công", Toast.LENGTH_SHORT).show();
+                            showToastWithDelay("Bạn có 1 thông báo mới", 2000); // Hiển thị sau 2 giây
 
-                            // Tạo notification
-                            createAndShowNotification();
+
+                            // Lưu thông báo vào Notifications collection trên Firestore
+                            String notificationTitle = "Bạn đã mua vé thành công";
+                            String notificationMessage = "Click vào để xem lịch sử đặt vé";
+                            saveNotificationToFirestore(notificationTitle, notificationMessage, date, time, sharedPreferenceHelper.getUserId());
+
+                            // Hiển thị thông báo
+                            createAndShowNotification(notificationTitle, notificationMessage);
 
                             finish();
                         } else {
@@ -173,16 +187,55 @@ public class Main_payment extends AppCompatActivity {
         }
     }
 
-    private void createAndShowNotification() {
+    private void createAndShowNotification(String title, String message) {
+        // Tạo intent để mở BookedHistoryActivity
+        Intent intent = new Intent(this, BookedHistory.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
+
         // Tạo notification
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.iconbell)
-                .setContentTitle("New Notification")
-                .setContentText("Bạn đã mua vé thành công")
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setContentIntent(pendingIntent) // Đặt PendingIntent vào notification
+                .setAutoCancel(true); // Tự động huỷ notification khi click vào
 
         // Hiển thị head-up notification
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(notificationId, builder.build());
+    }
+
+    private void saveNotificationToFirestore(String title, String message, String date, String time, String userId) {
+        Map<String, Object> notification = new HashMap<>();
+        notification.put("Title", title);
+        notification.put("Message", message);
+        notification.put("Date", date);
+        notification.put("Time", time);
+        notification.put("UserId", userId);
+
+        firebaseFirestore.collection("Notifications").add(notification)
+                .addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                        if (task.isSuccessful()) {
+                            // Successfully saved notification to Firestore
+                            String documentId = task.getResult().getId();
+                            // You can handle additional logic here if needed
+                        } else {
+                            // Failed to save notification to Firestore
+                            Toast.makeText(Main_payment.this, "Lỗi khi lưu thông báo vào Firestore", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+    }
+    public void showToastWithDelay(String message, int delay) {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(Main_payment.this, message, Toast.LENGTH_SHORT).show();
+            }
+        }, delay);
     }
 }

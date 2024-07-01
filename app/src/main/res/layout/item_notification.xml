@@ -5,7 +5,8 @@
     android:layout_height="wrap_content"
     android:background="@color/blue_sky"
     android:clickable="true"
-    android:padding="16dp">
+    android:padding="16dp"
+    android:layout_marginTop="2dp">
 
     <ImageView
         android:id="@+id/notification_icon"
@@ -32,5 +33,25 @@
         android:layout_toEndOf="@id/notification_icon"
         android:text="This is a notification message."
         android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/notification_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notification_message"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/notification_icon"
+        android:text="01/01/2024"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/notification_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/notification_date"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/notification_icon"
+        android:text="12:00 PM"
+        android:textSize="12sp" />
 
 </RelativeLayout>

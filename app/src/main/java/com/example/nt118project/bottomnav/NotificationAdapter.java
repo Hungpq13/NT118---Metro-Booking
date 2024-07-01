@@ -37,6 +37,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         holder.notificationIcon.setImageResource(notification.getIconResId());
         holder.notificationTitle.setText(notification.getTitle());
         holder.notificationMessage.setText(notification.getMessage());
+        holder.notificationDate.setText(notification.getDate());
+        holder.notificationTime.setText(notification.getTime());
         holder.rlContainer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +57,8 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         ImageView notificationIcon;
         TextView notificationTitle;
         TextView notificationMessage;
+        TextView notificationDate;
+        TextView notificationTime;
         RelativeLayout rlContainer;
 
         public ViewHolder(@NonNull View itemView) {
@@ -62,7 +66,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             notificationIcon = itemView.findViewById(R.id.notification_icon);
             notificationTitle = itemView.findViewById(R.id.notification_title);
             notificationMessage = itemView.findViewById(R.id.notification_message);
+            notificationDate = itemView.findViewById(R.id.notification_date);
+            notificationTime = itemView.findViewById(R.id.notification_time);
             rlContainer = itemView.findViewById(R.id.rl_container);
         }
     }
+
+
+
 }

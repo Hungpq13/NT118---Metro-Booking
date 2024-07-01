@@ -1,5 +1,6 @@
 package com.example.nt118project.bottomnav;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,14 +15,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.nt118project.Auth.SharedPreferenceHelper;
+import com.example.nt118project.Personal.information_personal;
 import com.example.nt118project.R;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentChange;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class NotificationFragment extends Fragment {
 
@@ -56,6 +62,9 @@ public class NotificationFragment extends Fragment {
         // Show or hide the "no notifications" message
         updateNoNotificationsText();
 
+        // Fetch current user's information from Firestore
+        fetchUserInfo();
+
         // Listen for changes in the "Notifications" collection
         CollectionReference documentsRef = firebaseFirestore.collection("Notifications");
 
@@ -70,18 +79,33 @@ public class NotificationFragment extends Fragment {
                     switch (dc.getType()) {
                         case ADDED:
                             DocumentSnapshot addedDocument = dc.getDocument();
-                            if (addedDocument.getString("UserId").equals(sharedPreferenceHelper.getUserId())) {
+                            String userId = sharedPreferenceHelper.getUserId();
+                            if (userId != null && userId.equals(addedDocument.getString("UserId"))) {
+                                // Extract notification data
+                                String title = addedDocument.getString("Title");
+                                String message = addedDocument.getString("Message");
+                                String date = addedDocument.getString("Date");
+                                String time = addedDocument.getString("Time");
+
+                                // Create Notification object
                                 Notification newNotification = new Notification(
                                         R.drawable.iconbell,
-                                        addedDocument.getString("Title"),
-                                        addedDocument.getString("Message")
+                                        title,
+                                        message,
+                                        date,
+                                        time
                                 );
+
+                                // Add notification to list
                                 notifications.add(newNotification);
+
                                 // Notify adapter on the main thread
                                 requireActivity().runOnUiThread(() -> {
                                     notificationAdapter.notifyDataSetChanged();
                                     updateNoNotificationsText();
                                 });
+
+
                             }
                             break;
                         case MODIFIED:
@@ -96,6 +120,29 @@ public class NotificationFragment extends Fragment {
         });
 
         return view;
+    }
+
+
+
+    private void fetchUserInfo() {
+        String userId = sharedPreferenceHelper.getUserId();
+        if (userId != null) {
+            // Retrieve user information from Firestore
+            DocumentReference userRef = firebaseFirestore.collection("Users").document(userId);
+            userRef.get().addOnSuccessListener(documentSnapshot -> {
+                if (documentSnapshot.exists()) {
+                    // Example: Fetch user's name and store it in SharedPreferenceHelper
+                    String userName = documentSnapshot.getString("userName");
+                    sharedPreferenceHelper.setUserName(userName);
+                } else {
+                    Log.d("TAG", "User document does not exist");
+                }
+            }).addOnFailureListener(e -> {
+                Log.e("TAG", "Error fetching user information", e);
+            });
+        } else {
+            Log.d("TAG", "User ID is null");
+        }
     }
 
     private void updateNoNotificationsText() {

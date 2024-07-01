@@ -2,11 +2,13 @@ package com.example.nt118project.bottomnav;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,8 @@ import com.example.nt118project.MainFunction.Main_payment;
 import com.example.nt118project.MainFunction.MapsActivity;
 import com.example.nt118project.MainFunction.NearStation1Activity;
 import com.example.nt118project.R;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -37,12 +41,12 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-
 
 import java.io.IOException;
 import java.util.List;
@@ -56,6 +60,8 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
     private SearchView searchView;
     private SharedPreferenceHelper sharedPreferenceHelper;
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    private FusedLocationProviderClient fusedLocationClient;
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -71,6 +77,9 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         metro = view.findViewById(R.id.metro);
         search = view.findViewById(R.id.search);
         sharedPreferenceHelper = new SharedPreferenceHelper(requireContext());
+
+        // Initialize fusedLocationClient
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity());
 
         firebaseFirestore.collection("Users").whereEqualTo("UserId", sharedPreferenceHelper.getUserId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -146,7 +155,6 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -206,7 +214,7 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(binhthai));
         LatLng thuduc = new LatLng(10.846389, 106.771659);
         mMap.addMarker(new MarkerOptions().position(thuduc).title("Trạm 11 - Thủ Đức").icon(BitmapDescriptorFactory.fromResource(R.drawable.markericon)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(anphu));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(thuduc));
         LatLng cnc = new LatLng(10.858992, 106.788830);
         mMap.addMarker(new MarkerOptions().position(cnc).title("Trạm 12 - Khu Công Nghệ cao").icon(BitmapDescriptorFactory.fromResource(R.drawable.markericon)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(cnc));
@@ -216,9 +224,46 @@ public class HomeFragment extends Fragment implements OnMapReadyCallback {
         LatLng gst = new LatLng(10.879520, 106.814104);
         mMap.addMarker(new MarkerOptions().position(gst).title("Trạm 14 - Ga Suối Tiên ").icon(BitmapDescriptorFactory.fromResource(R.drawable.markericon)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(gst));
-        LatLng defaultLocation = new LatLng(10.8700, 106.8032);
-        mMap.addMarker(new MarkerOptions().position(defaultLocation).title("Bạn"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(defaultLocation, 15));
+
+        // Check for location permissions
+        requestLocationPermission();
+    }
+
+    private void requestLocationPermission() {
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST_CODE);
+        } else {
+            getCurrentLocation();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                getCurrentLocation();
+            } else {
+                Toast.makeText(requireContext(), "Location permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void getCurrentLocation() {
+        if (fusedLocationClient != null) {
+            fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), new OnSuccessListener<Location>() {
+                @Override
+                public void onSuccess(Location location) {
+                    if (location != null) {
+                        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+                        mMap.addMarker(new MarkerOptions().position(currentLatLng).title("Bạn"));
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15));
+                    }
+                }
+            });
+        } else {
+            Toast.makeText(requireContext(), "Location client is not initialized", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private BitmapDescriptor bitmapDescriptor(Context context, int vectorResid) {

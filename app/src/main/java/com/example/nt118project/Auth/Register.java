@@ -46,25 +46,28 @@ public class Register extends AppCompatActivity {
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String name = txtUsername.getText().toString();
-                String email = txtEmail.getText().toString();
-                String password = txtPassword.getText().toString();
-                String DoB = txtDob.getText().toString();
-                String Gender = spinnerGender.getSelectedItem().toString();
-                String Phone = phoneTxt.getText().toString();
+                String name = txtUsername.getText().toString().trim();
+                String email = txtEmail.getText().toString().trim();
+                String password = txtPassword.getText().toString().trim();
+                String conPassword = txtConPassword.getText().toString().trim();
+                String dob = txtDob.getText().toString().trim();
+                String gender = spinnerGender.getSelectedItem().toString();
+                String phone = phoneTxt.getText().toString().trim();
 
-                // Kiểm tra tuổi người dùng có lớn hơn 2 tuổi không
-                if (isAgeValid(DoB)) {
-                    DataUser DataUser = new DataUser(name, email, password);
+                // Kiểm tra ràng buộc trường
+                if (validateFields(name, email, password, conPassword, dob, phone)) {
+                    // Kiểm tra tuổi người dùng có lớn hơn 2 tuổi không
+                    if (isAgeValid(dob)) {
+                        // Đăng ký người dùng
+                        Authentication.signUpWithEmailPassword(name, email, password, dob, gender, phone);
 
-                    Toast.makeText(Register.this, "Bạn đã đăng ký thành công !", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Register.this, "Bạn đã đăng ký thành công !", Toast.LENGTH_SHORT).show();
 
-                    Authentication.signUpWithEmailPassword(name, email, password, DoB, Gender, Phone);
-
-                    Intent intent = new Intent(Register.this, Login.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(Register.this, "Tuổi của người dùng phải lớn hơn 2 tuổi.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(Register.this, Login.class);
+                        startActivity(intent);
+                    } else {
+                        Toast.makeText(Register.this, "Tuổi của người dùng phải lớn hơn 2 tuổi.", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -117,5 +120,63 @@ public class Register extends AppCompatActivity {
             e.printStackTrace();
             return false;
         }
+    }
+
+    // Phương thức kiểm tra và ràng buộc các trường nhập liệu
+    private boolean validateFields(String name, String email, String password, String conPassword, String dob, String phone) {
+        if (name.isEmpty()) {
+            txtUsername.setError("Vui lòng nhập tên người dùng");
+            txtUsername.requestFocus();
+            return false;
+        }
+
+        if (email.isEmpty()) {
+            txtEmail.setError("Vui lòng nhập địa chỉ email");
+            txtEmail.requestFocus();
+            return false;
+        }
+
+        if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            txtEmail.setError("Địa chỉ email không hợp lệ");
+            txtEmail.requestFocus();
+            return false;
+        }
+
+        if (password.isEmpty()) {
+            txtPassword.setError("Vui lòng nhập mật khẩu");
+            txtPassword.requestFocus();
+            return false;
+        }
+
+        if (password.length() < 6) {
+            txtPassword.setError("Mật khẩu phải có ít nhất 6 ký tự");
+            txtPassword.requestFocus();
+            return false;
+        }
+
+        if (!conPassword.equals(password)) {
+            txtConPassword.setError("Mật khẩu xác nhận không khớp");
+            txtConPassword.requestFocus();
+            return false;
+        }
+
+        if (dob.isEmpty()) {
+            Toast.makeText(this, "Vui lòng chọn ngày sinh", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        if (phone.isEmpty()) {
+            phoneTxt.setError("Vui lòng nhập số điện thoại");
+            phoneTxt.requestFocus();
+            return false;
+        }
+
+        if (phone.length() != 10 ) {
+            phoneTxt.setError("Số điện thoại phải có 10");
+            phoneTxt.requestFocus();
+            return false;
+        }
+
+        return true;
     }
 }
